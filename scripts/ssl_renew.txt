@@ -1,0 +1,21 @@
+# Make ssl_renew.sh executable:
+chmod +x ssl_renew.sh
+
+# Open your root crontab file to run the renewal script at a specified interval:
+sudo crontab -e
+
+At the end of the file, add the following line:
+...
+*/5 * * * * /home/www/scripts/ssl_renew.sh >> /var/log/cron.log 2>&1
+
+# This will set the job interval to every five minutes, so you can test whether your renewal request has worked as intended.
+# You have also created a log file, cron.log, to record relevant output from the job.
+# After five minutes, check cron.log to confirm whether the renewal request has succeeded:
+tail -f /var/log/cron.log
+
+# You can now modify the crontab file to set a daily interval.
+# To run the script every day at noon, for example, you could modify the last line of the file like the following:
+...
+0 12 * * * /home/www/scripts/ssl_renew.sh >> /var/log/cron.log 2>&1
+
+# Remove or comment out the --dry-run option from your ssl_renew.sh script.
