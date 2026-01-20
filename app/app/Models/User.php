@@ -40,4 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+	
+	/**
+	 * Get the user's uploads.
+	 */
+	public function uploads()
+	{
+		return $this->hasMany(Upload::class);
+	}
 }

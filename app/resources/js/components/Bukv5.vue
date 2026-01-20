@@ -84,11 +84,11 @@
 
 <script>
 
-import Mixin5bukv from './mixins/Mixin5bukv'
+import MixinBukv5 from './mixins/MixinBukv5'
 
 export default {
-  name: 'vue-5bukv',
-	mixins: [ Mixin5bukv ],
+  name: 'vue-bukv5',
+	mixins: [ MixinBukv5 ],
   data: function () {
 		return {
 			error: null,
@@ -97,7 +97,7 @@ export default {
 			include: [],
 			subsequence: [null, null, null, null, null],
 			waiting: false
-			// Букварь и Словарь в Mixin5bukv
+			// Букварь и Словарь в MixinBukv5
 		}
   },
 	computed: {

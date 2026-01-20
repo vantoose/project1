@@ -20,8 +20,8 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('vue-overlay-spinner', require('./components/overlay-spinner.vue').default);
-Vue.component('vue-5bukv', require('./components/5bukv.vue').default);
+Vue.component('vue-overlay-spinner', require('./components/OverlaySpinner.vue').default);
+Vue.component('vue-bukv5', require('./components/Bukv5.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

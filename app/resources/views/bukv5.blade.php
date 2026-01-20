@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-	<vue-5bukv/>
+	<vue-bukv5/>
 
 </div>
 @endsection

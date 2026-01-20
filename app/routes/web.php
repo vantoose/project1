@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UploadController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,17 +17,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+	return redirect()->route('home')->withStatus('Welcome.');
     return view('welcome');
 });
 
 Auth::routes(['register' => env('AUTH_REGISTER', false), 'verify' => env('AUTH_VERIFY', false)]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('home', [HomeController::class, 'index'])->name('home');
+Route::get('hash', [HomeController::class, 'hash'])->name('hash');
+Route::get('5bukv', [HomeController::class, 'bukv5'])->name('5bukv');
 
-Route::middleware('auth')->get('/hash/{q?}', function (Illuminate\Http\Request $request) {
-	$text = $request->q ?: Illuminate\Support\Str::random(8);
-	$hash = Illuminate\Support\Facades\Hash::make($text);
-	return ['text' => $text, 'hash' => $hash];
-})->name('hash');
-
-Route::get('5bukv', function () { return view('5bukv'); })->name('5bukv');
+Route::prefix('uploads')->name('uploads.')->group(function () {
+  Route::get('{upload}/download', [UploadController::class, 'download'])->name('download');
+});
+Route::resource('uploads', UploadController::class)->except(['create', 'edit', 'update']);
