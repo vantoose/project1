@@ -54,7 +54,7 @@ class UploadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpload $request)
     {
 		$user = $request->user();
 		$validated = $request->validated();
@@ -114,7 +114,7 @@ class UploadController extends Controller
      * @param  \App\Models\Upload  $upload
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Upload $upload)
+    public function update(UpdateUpload $request, Upload $upload)
     {
         //
     }
