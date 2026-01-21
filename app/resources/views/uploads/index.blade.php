@@ -3,8 +3,6 @@
 @section('content')
   <div class="container">
 
-    {{ $uploads->links() }}
-
     <form method="POST" action="{{ route('uploads.store') }}" enctype="multipart/form-data" class="mb-3">
       @csrf
       <div class="form-group">
@@ -15,6 +13,8 @@
       </div>
       <button type="submit" class="btn btn-primary">{{ __('Store') }}</button>
     </form>
+
+    {{ $uploads->links() }}
 
     <div class="list-group mb-3">
       @foreach ($uploads as $upload)
