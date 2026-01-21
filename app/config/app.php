@@ -230,6 +230,7 @@ return [
         
         'DateHelper' => App\Helpers\DateHelper::class,
         'FileHelper' => App\Helpers\FileHelper::class,
+        'PhpConfigHelper' => App\Helpers\PhpConfigHelper::class,
 
     ],
 

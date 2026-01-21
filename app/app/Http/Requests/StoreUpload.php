@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Helpers\FileHelper;
+use App\Helpers\PhpConfigHelper;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUpload extends FormRequest
@@ -35,8 +37,13 @@ class StoreUpload extends FormRequest
 	 */
 	public function rules()
 	{
+		$maxSize = PhpConfigHelper::getUploadMaxFilesize();
 		return [
-			'upload_file' => 'required|file',
+			'upload_file' => [
+				'required',
+				'file',
+				'max:' . FileHelper::convertToKilobytes($maxSize),
+			],
 		];
 	}
 }

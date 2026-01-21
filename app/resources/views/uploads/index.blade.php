@@ -9,6 +9,11 @@
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="upload_file" name="upload_file">
           <label class="custom-file-label browse-hide" for="upload_file">{{ __("Choose File") }}</label>
+          <small class="form-text text-muted">
+            Upload max filesize is
+            {{ PhpConfigHelper::getUploadMaxFilesizeWithSizeUnits() }}
+            ({{ FileHelper::convertToKilobytes(PhpConfigHelper::getUploadMaxFilesize()) }} bytes)
+          </small>
         </div>
       </div>
       <button type="submit" class="btn btn-primary">{{ __('Store') }}</button>

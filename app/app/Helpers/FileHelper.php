@@ -35,6 +35,25 @@ class FileHelper
     return $bytes;
   }
 
+  public static function convertToBytes($value)
+  {
+    $value = trim($value);
+    $last = strtolower($value[strlen($value)-1]);
+    $value = (int) $value;
+    switch ($last) {
+      case 'g': $value *= 1024;
+      case 'm': $value *= 1024;
+      case 'k': $value *= 1024;
+    }
+    return $value;
+  }
+
+	public static function convertToKilobytes($value)
+	{
+		$bytes = self::convertToBytes($value);
+		return floor($bytes / 1024);
+	}
+
   public static function isImage($file)
   {
     $whitelist_type = array('image/jpeg', 'image/png', 'image/gif');
