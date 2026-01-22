@@ -36,7 +36,7 @@ Route::resource('uploads', UploadController::class)->except(['create', 'edit', '
  * Admin
  */
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['role:admin'])->group(function () {
   Route::prefix('users')->name('users.')->group(function () {
 		Route::get('{user}/login_as', [App\Http\Controllers\Admin\UserController::class, 'login_as'])->name('login_as');
 	});

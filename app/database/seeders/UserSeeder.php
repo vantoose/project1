@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
@@ -17,11 +18,16 @@ class UserSeeder extends Seeder
    */
   public function run()
   {
+    $password = Hash::make(Str::random(12));
+    if (App::environment('local')) {
+      $password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
+    }
+
     DB::table('users')->insert([
       'name' => 'Ivan',
-      'email' => 'vantoose@gmail.com',
+      'email' => 'www@ishipilov.ru',
       'email_verified_at' => now(),
-      'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+      'password' => $password,
       'remember_token' => Str::random(10),
     ]);
   }

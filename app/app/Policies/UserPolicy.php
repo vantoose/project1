@@ -17,7 +17,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->id == 1;
+        return true;
     }
 
     /**
@@ -29,7 +29,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        //
+        return true;
     }
 
     /**
@@ -100,6 +100,6 @@ class UserPolicy
 	 */
 	public function login_as(User $user, User $model)
 	{
-		return $user->id == 1;
+		return $user->can('login as');
 	}
 }
