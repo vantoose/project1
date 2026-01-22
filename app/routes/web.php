@@ -31,3 +31,14 @@ Route::prefix('uploads')->name('uploads.')->group(function () {
   Route::get('{upload}/download', [UploadController::class, 'download'])->name('download');
 });
 Route::resource('uploads', UploadController::class)->except(['create', 'edit', 'update']);
+
+/**
+ * Admin
+ */
+
+Route::prefix('admin')->name('admin.')->group(function () {
+  Route::prefix('users')->name('users.')->group(function () {
+		Route::get('{user}/login_as', [App\Http\Controllers\Admin\UserController::class, 'login_as'])->name('login_as');
+	});
+	Route::resource('users', App\Http\Controllers\Admin\UserController::class)->only(['index']);
+});
