@@ -16,10 +16,10 @@
         <h5 class="card-title">{{ $post->title }}</h5>
         <post class="card-text">{!! Illuminate\Support\Str::of($post->content)->markdown(['html_input' => 'strip']) !!}</post>
         <div class="text-nowrap">
-          <small>{{ DateHelper::isoFormat($post->created_at) }}</small>
+          <small>{{ DateHelper::isoFormat($post->view_show_date) }}</small>
           <small>
             <span>&mdash;</span>
-            <a href="{{ route('posts.indexUser', $post->user) }}">{{ $post->user->name }}</a>
+            <span>{{ $post->user->name }}</span>
           </small>
         </div>
       </div>

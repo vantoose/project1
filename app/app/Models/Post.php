@@ -17,8 +17,29 @@ class Post extends Model
 	 * @var array
 	 */
 	protected $casts = [
+        'published_at' => 'datetime', // Casts to Carbon instance with time
 		'options' => 'array',
 	];
+
+	/**
+	 * View date.
+	 *
+	 * @return string
+	 */
+	public function getViewShowDateAttribute()
+	{
+		return $this->published_at ?? $this->updated_at;
+	}
+
+	/**
+	 * Is published.
+	 *
+	 * @return string
+	 */
+	public function getIsPublishedAttribute()
+	{
+		return $this->published_at !== null;
+	}
 
 	/**
 	 * Get the user that owns the entity.
@@ -26,6 +47,17 @@ class Post extends Model
 	public function user()
 	{
 		return $this->belongsTo(User::class);
+	}
+
+	/**
+	 * Scope a query to published entities.
+	 *
+	 * @param  \Illuminate\Database\Eloquent\Builder  $query
+	 * @return void
+	 */
+	public function scopePublished($query)
+	{
+		$query->whereNotNull('published_at');
 	}
 
 	/**
@@ -37,6 +69,7 @@ class Post extends Model
 	public function scopeOrdered($query)
 	{
 		$query->orderByRaw('CASE WHEN deleted_at IS NOT NULL THEN TRUE ELSE FALSE END, deleted_at DESC')
+		->orderByDesc('published_at')
 		->orderByDesc('updated_at')
 		->orderByDesc('created_at')
 		->orderByDesc('id');

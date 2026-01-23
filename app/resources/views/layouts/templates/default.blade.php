@@ -6,6 +6,14 @@
 
 	<main>
 		<div class="container">
+			@if(Breadcrumbs::exists(Route::currentRouteName()))
+				{{ Breadcrumbs::render() }}
+			@else
+				@yield('breadcrumbs')
+			@endif
+		</div>
+		
+		<div class="container">
 			<x-layouts.alerts/>
 		</div>
 		

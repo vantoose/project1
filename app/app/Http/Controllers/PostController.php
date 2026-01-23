@@ -27,7 +27,7 @@ class PostController extends Controller
    */
   public function index()
   {
-    $posts = Post::ordered()->paginate(20);
+    $posts = Post::published()->ordered()->paginate(20);
     return view('posts.index')->withPosts($posts);
   }
 
@@ -40,7 +40,7 @@ class PostController extends Controller
 
   public function indexUser(User $user)
   {
-    $posts = $user->posts()->ordered()->paginate(20);
+    $posts = $user->posts()->published()->ordered()->paginate(20);
     return view('posts.index')->withPosts($posts);
   }
 
