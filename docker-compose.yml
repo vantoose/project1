@@ -9,14 +9,6 @@ services:
     image: php-laravel-app:dev
     container_name: app
     restart: unless-stopped
-    environment:
-      PHP_IDE_CONFIG: serverName=docker
-      XDEBUG_MODE: ${XDEBUG_MODE:-off}
-    healthcheck:
-      test: ["CMD", "php", "-v"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
     volumes:
       - ./app:/var/www
       - ./config/laravel/.env:/var/www/.env
@@ -24,6 +16,11 @@ services:
       - ./logs/laravel:/var/www/storage/logs
     networks:
       - app-network
+    healthcheck:
+      test: ["CMD", "php", "-v"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 
   # Nginx Service

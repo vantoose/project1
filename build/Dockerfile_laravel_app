@@ -14,13 +14,14 @@ RUN apt-get update && apt-get install -y \
 
 # Установка прочего
 RUN apt-get update && apt-get install -y \
+    curl \
     git \
     mc \
     nano \
     sudo
 
-# Очистка cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Установка Node.js и npm
+RUN apt-get update && apt-get install -y nodejs npm
 
 # Установка PHP расширений
 RUN docker-php-ext-install pdo_mysql zip exif pcntl && \
@@ -29,6 +30,12 @@ RUN docker-php-ext-install pdo_mysql zip exif pcntl && \
 
 # Установка Composer
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+# Очистка cache
+RUN apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /tmp/* \
+    && npm cache clean --force
 
 # Создание пользователя
 RUN groupadd -g 1000 www && \

@@ -14,8 +14,13 @@
                     <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('uploads.index') }}">{{ __('Uploads') }}</a>
+                    <a class="nav-link" href="{{ route('posts.index') }}">{{ __('Posts') }}</a>
                 </li>
+                @can('viewAny', \App\Models\Upload::class)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('uploads.index') }}">{{ __('Uploads') }}</a>
+                    </li>
+                @endcan
             </ul>
 
             <!-- Right Side Of Navbar -->

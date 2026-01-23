@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\App;
@@ -31,7 +32,8 @@ class DatabaseSeeder extends Seeder
 
     if (App::environment('local')) {
 
-      User::factory(5)->create();
+      User::factory(9)->create();
+      Post::factory(100)->create();
 
     }
   }
