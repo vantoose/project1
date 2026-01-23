@@ -20,7 +20,7 @@
               <small class="text-muted text-nowrap">&mdash; {{ $post->user->name }}</small>
             </div>
             <div class="d-flex flex-column flex-md-row ml-auto">
-              <div class="align-self-md-center small text-nowrap">{{ DateHelper::isoFormat($post->created_at) }}</div>
+              <div class="align-self-md-center small text-nowrap">[{{ $post->id }}]</div>
             </div>
           </a>
         @endcan
