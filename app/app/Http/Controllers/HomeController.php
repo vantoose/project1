@@ -36,6 +36,7 @@ class HomeController extends Controller
     {
         $text = $request->q ?: \Illuminate\Support\Str::random(8);
         $hash = \Illuminate\Support\Facades\Hash::make($text);
+	    return view('hash')->with(['text' => $text, 'hash' => $hash]);
         return ['text' => $text, 'hash' => $hash];
     }
 

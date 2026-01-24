@@ -23,16 +23,16 @@ Breadcrumbs::for('5bukv', function (BreadcrumbTrail $trail) {
     $trail->push(Lang::get('routes.web.5bukv'), route('5bukv'));
 });
 
+// Home > Hash
+Breadcrumbs::for('hash', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(Lang::get('routes.web.hash'), route('hash'));
+});
+
 // Home > Posts
 Breadcrumbs::for('posts.index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push(Lang::get('routes.web.posts.index'), route('posts.index'));
-});
-
-// Home > Posts > User
-Breadcrumbs::for('posts.indexUser', function (BreadcrumbTrail $trail, User $user) {
-    $trail->parent('posts.index');
-    $trail->push($user->name, route('posts.indexUser', $user));
 });
 
 // Home > Posts > Create
@@ -44,7 +44,6 @@ Breadcrumbs::for('posts.create', function (BreadcrumbTrail $trail) {
 // Home > Posts > Show
 Breadcrumbs::for('posts.show', function (BreadcrumbTrail $trail, Post $post) {
     $trail->parent('posts.index');
-    $trail->push($post->user->name, route('posts.indexUser', $post->user));
     $trail->push($post->title, route('posts.show', $post));
 });
 
@@ -58,4 +57,16 @@ Breadcrumbs::for('posts.edit', function (BreadcrumbTrail $trail, Post $post) {
 Breadcrumbs::for('uploads.index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push(Lang::get('routes.web.uploads.index'), route('uploads.index'));
+});
+
+// Home > Admin > Users
+Breadcrumbs::for('admin', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(Lang::get('routes.web.admin.index'));
+});
+
+// Home > Admin > Users
+Breadcrumbs::for('admin.users.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin');
+    $trail->push(Lang::get('routes.web.admin.users.index'), route('admin.users.index'));
 });

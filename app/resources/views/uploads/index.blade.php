@@ -19,7 +19,9 @@
       <button type="submit" class="btn btn-primary">{{ __('Store') }}</button>
     </form>
 
-    {{ $uploads->links() }}
+    <div class="overflow-auto">
+      {{ $uploads->links() }}
+    </div>
 
     <div class="list-group mb-3">
       @foreach ($uploads as $upload)
@@ -56,7 +58,9 @@
       @endforeach
     </div>
 
-    {{ $uploads->links() }}
+    <div class="overflow-auto">
+      {{ $uploads->links() }}
+    </div>
 
   </div>
 @endsection

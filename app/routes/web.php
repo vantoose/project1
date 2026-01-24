@@ -28,9 +28,6 @@ Route::get('home', [HomeController::class, 'index'])->name('home');
 Route::get('hash', [HomeController::class, 'hash'])->name('hash');
 Route::get('5bukv', [HomeController::class, 'bukv5'])->name('5bukv');
 
-Route::prefix('posts')->name('posts.')->group(function () {
-  Route::get('user/{user}', [PostController::class, 'indexUser'])->name('indexUser');
-});
 Route::resource('posts', PostController::class);
 
 Route::prefix('uploads')->name('uploads.')->group(function () {

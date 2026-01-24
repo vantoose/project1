@@ -6,6 +6,7 @@ return [
     'login' => 'Log in',
     'home' => 'Home',
     '5bukv' => '5 букв',
+    'hash' => 'Hash maker',
     'posts' => [
       'index' => 'Posts',
       'create' => 'Create',
@@ -22,6 +23,7 @@ return [
       ],
     ],
     'admin' => [
+      'index' => 'Admin',
       'users' => [
         'index' => 'Users',
       ],

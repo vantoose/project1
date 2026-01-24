@@ -9,21 +9,6 @@
       @endcan
     </nav>
 
-    <!-- Форма поиска -->
-    <div class="card mb-3">
-      <div class="card-body">
-        <form method="GET">
-          <div class="form-row">
-            <div class="col">
-              <input type="text" name="q" class="form-control" value="{{ request('q') }}">
-            </div>
-            <div class="col-auto">
-              <button type="submit" class="btn btn-primary">{{ __('Search') }}</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
     <!-- Результаты поиска -->
     @if(request()->has('q') && !empty(request('q')))
       <div class="row">
@@ -39,7 +24,9 @@
       </div>
     @endif
 
-    {{ $posts->links() }}
+    <div class="overflow-auto">
+      {{ $posts->links() }}
+    </div>
 
     <div class="list-group mb-3">
       @foreach ($posts as $post)
@@ -57,7 +44,25 @@
       @endforeach
     </div>
 
-    {{ $posts->links() }}
+    <div class="overflow-auto">
+      {{ $posts->links() }}
+    </div>
+
+    <!-- Форма поиска -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <form method="GET" action="{{ route('posts.index') }}">
+          <div class="form-row">
+            <div class="col">
+              <input type="text" name="q" class="form-control" value="{{ request('q') }}">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary">{{ __('Search') }}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
     
   </div>
 @endsection
