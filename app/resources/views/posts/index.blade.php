@@ -9,6 +9,36 @@
       @endcan
     </nav>
 
+    <!-- Форма поиска -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <form method="GET" action="{{ route('posts.index') }}">
+          <div class="form-row">
+            <div class="col">
+              <input type="text" name="q" class="form-control" value="{{ request('q') }}">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary">{{ __('Search') }}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- Результаты поиска -->
+    @if(request()->has('q') && !empty(request('q')))
+      <div class="row">
+        <div class="col-12">
+          <div class="alert alert-light mb-3">
+            @if($posts->total() > 0)
+              <span>Найдено записей: <strong>{{ $posts->total() }}</strong> по запросу "<strong>{{ request('q') }}</strong>".</span>
+            @else
+              <span>По запросу "<strong>{{ request('q') }}</strong>" ничего не найдено.</span>
+            @endif
+          </div>
+        </div>
+      </div>
+    @endif
+
     {{ $posts->links() }}
 
     <div class="list-group mb-3">

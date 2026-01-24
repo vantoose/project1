@@ -23,11 +23,14 @@ class PostController extends Controller
   /**
    * Display a listing of the resource.
    *
+   * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
-    $posts = Post::published()->ordered()->paginate(20);
+    $posts = Post::published()->ordered()
+    ->search($request->input('q'))
+    ->paginate(20)->withQueryString();
     return view('posts.index')->withPosts($posts);
   }
 

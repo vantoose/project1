@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
@@ -74,4 +76,16 @@ class Post extends Model
 		->orderByDesc('created_at')
 		->orderByDesc('id');
 	}
+
+    /**
+     * Scope для поиска по заголовку и содержимому
+     */
+    public function scopeSearch(Builder $query, ?string $search): Builder
+    {
+        if (!$search) return $query;
+        return $query->where(function(Builder $q) use ($search) {
+            $q->where('title', 'like', "%{$search}%")
+            ->orWhere('content', 'like', "%{$search}%");
+        });
+    }
 }
