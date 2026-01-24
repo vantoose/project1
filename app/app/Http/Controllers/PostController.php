@@ -37,13 +37,16 @@ class PostController extends Controller
   /**
    * Display a listing of the resource by user.
    *
+   * @param  \Illuminate\Http\Request  $request
    * @param  \App\Models\User  $user
    * @return \Illuminate\Http\Response
    */
 
-  public function indexUser(User $user)
+  public function indexUser(Request $request, User $user)
   {
-    $posts = $user->posts()->published()->ordered()->paginate(20);
+    $posts = $user->posts()->published()->ordered()
+    ->search($request->input('q'))
+    ->paginate(20)->withQueryString();
     return view('posts.index')->withPosts($posts);
   }
 

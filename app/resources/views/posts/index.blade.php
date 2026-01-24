@@ -12,7 +12,7 @@
     <!-- Форма поиска -->
     <div class="card mb-3">
       <div class="card-body">
-        <form method="GET" action="{{ route('posts.index') }}">
+        <form method="GET">
           <div class="form-row">
             <div class="col">
               <input type="text" name="q" class="form-control" value="{{ request('q') }}">
