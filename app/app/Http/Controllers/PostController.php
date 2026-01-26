@@ -102,6 +102,7 @@ class PostController extends Controller
     try {
       $post->title = $validated['title'];
       $post->content = $validated['content'];
+			$post->published_at = $validated['is_published'] ?? 0 ? now() : null;
       $post->save();
       return redirect()->route('posts.show', $post)->withStatus("Success.");
     } catch (\Exception $e) {

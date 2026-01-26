@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
     if (App::environment('local')) {
 
       User::factory(9)->create();
-      Post::factory(99)->create();
+      Post::factory(49)->create();
 
     }
   }

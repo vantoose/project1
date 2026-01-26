@@ -33,6 +33,8 @@ class UserSeeder extends Seeder
       'password' => $password,
       'remember_token' => Str::random(10),
       'api_token' => $api_token,
+      'created_at' => now(),
+      'updated_at' => now(),
     ]);
   }
 }

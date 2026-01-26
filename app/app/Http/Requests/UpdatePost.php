@@ -26,6 +26,7 @@ class UpdatePost extends FormRequest
 		return [
 			'title' => 'Title',
 			'content' => 'Content',
+			'is_published' => 'Is published',
 		];
 	}
 
@@ -39,6 +40,7 @@ class UpdatePost extends FormRequest
 		return [
 			'title' => 'required|string',
 			'content' => 'required|string',
+			'is_published' => 'nullable|boolean',
 		];
 	}
 }
