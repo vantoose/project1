@@ -13,23 +13,36 @@
 
     <div class="card">
       <div class="card-body">
+
         @if ($post->user->is(Auth::user()))
           @if ($post->is_published)
-            <div class="badge badge-light text-nowrap mb-3">{{ __('Published') }}</div>
+            <div class="mb-3">
+              <span class="badge badge-light text-nowrap">{{ __('Published') }}</span>
+            </div>
           @endif
         @endif
+
         <h5 class="card-title">{{ $post->title }}</h5>
+
         <post class="card-text">{!! Illuminate\Support\Str::of($post->content)->markdown(['html_input' => 'strip']) !!}</post>
-        <div class="d-flex align-items-end">
-          <div class="small">
-            <span>{{ DateHelper::isoFormat($post->view_show_date) }}</span>
-            <span>&mdash;</span>
-            <span>{{ $post->user->name }}</span>
+        
+        <div class="d-flex align-items-center">
+          <div class="mr-auto">
+            <div class="small">
+              @if ($post->is_published)
+                <span>{{ DateHelper::isoFormat($post->published_at) }}</span>
+              @else
+                <span>{{ DateHelper::isoFormat($post->updated_at) }}</span>
+              @endif
+              <span>&mdash;</span>
+              <span>{{ $post->user->name }}</span>
+            </div>
           </div>
-          <div class="ml-auto">
-            <span>[{{ $post->id }}]</span>
+          <div class="">
+            <small>[{{ $post->id }}]</small>
           </div>
         </div>
+
       </div>
     </div>
 

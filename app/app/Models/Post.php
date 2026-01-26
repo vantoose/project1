@@ -24,16 +24,6 @@ class Post extends Model
 	];
 
 	/**
-	 * View date.
-	 *
-	 * @return string
-	 */
-	public function getViewShowDateAttribute()
-	{
-		return $this->published_at ?? $this->updated_at;
-	}
-
-	/**
 	 * Is published.
 	 *
 	 * @return string
