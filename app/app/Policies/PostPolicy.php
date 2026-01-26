@@ -18,7 +18,7 @@ class PostPolicy
      */
     public function viewAny(?User $user)
     {
-		  return true;
+		return $user;
     }
 
     /**
@@ -30,7 +30,8 @@ class PostPolicy
      */
     public function view(?User $user, Post $post)
     {
-		  return true;
+        return $post->is_published
+        || $post->user->is($user);
     }
 
     /**
@@ -41,7 +42,7 @@ class PostPolicy
      */
     public function create(User $user)
     {
-		  return $user;
+		return $user;
     }
 
     /**
@@ -53,7 +54,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-		  return $post->user->is($user);
+		return $post->user->is($user);
     }
 
     /**
@@ -65,7 +66,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-		  return $post->user->is($user);
+		return $post->user->is($user);
     }
 
     /**

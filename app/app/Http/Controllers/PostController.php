@@ -28,7 +28,8 @@ class PostController extends Controller
    */
   public function index(Request $request)
   {
-    $posts = Post::published()->ordered()
+    $user = $request->user();
+    $posts = $user->posts()->ordered()
     ->search($request->input('q'))
     ->paginate(20)->withQueryString();
     return view('posts.index')->withPosts($posts);

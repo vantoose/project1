@@ -32,7 +32,11 @@ Breadcrumbs::for('hash', function (BreadcrumbTrail $trail) {
 // Home > Posts
 Breadcrumbs::for('posts.index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push(Lang::get('routes.web.posts.index'), route('posts.index'));
+    if (auth()->check() && auth()->user()->can('viewAny', \App\Models\Post::class)) {
+        $trail->push(Lang::get('routes.web.posts.index'), route('posts.index'));
+    } else {
+        $trail->push(Lang::get('routes.web.posts.index'));
+    }
 });
 
 // Home > Posts > Create

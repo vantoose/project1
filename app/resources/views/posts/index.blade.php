@@ -37,7 +37,11 @@
               <small class="text-muted text-nowrap">&mdash; {{ $post->user->name }}</small>
             </div>
             <div class="d-flex flex-column flex-md-row ml-auto">
-              <div class="align-self-md-center small text-nowrap">[{{ $post->id }}]</div>
+              @if ($post->is_published)
+                <div class="align-self-md-center small">
+                  <span class="badge badge-light text-nowrap">{{ __('Published') }}</span>
+                </div>
+              @endif
             </div>
           </a>
         @endcan

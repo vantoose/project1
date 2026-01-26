@@ -26,6 +26,8 @@ return new class extends Migration
 			$table->json('options')->nullable();
 
 			$table->foreignId('user_id')->constrained();
+
+            $table->fullText(['title', 'content']);
         });
     }
 
