@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -24,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'api_token',
     ];
 
     /**
@@ -34,6 +36,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'api_token',
     ];
 
     /**
@@ -44,6 +47,41 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Генерация нового API токена
+     *
+     * @return string
+     */
+    public function generateApiToken()
+    {
+        $token = Str::random(60);
+        $this->api_token = hash('sha256', $token);
+        $this->save();
+        
+        return $token;
+    }
+
+    /**
+     * Удаление API токена
+     *
+     * @return void
+     */
+    public function clearApiToken()
+    {
+        $this->api_token = null;
+        $this->save();
+    }
+
+    /**
+     * Проверка, имеет ли пользователь валидный токен
+     *
+     * @return bool
+     */
+    public function hasValidApiToken()
+    {
+        return !empty($this->api_token);
+    }
 	
 	/**
 	 * Get the user's posts.

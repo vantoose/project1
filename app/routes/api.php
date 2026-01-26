@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\V1\PostController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('v1')->group(function () {
+    // Аутентификация
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
+    
+    // Защищенные маршруты (требуют аутентификации)
+    Route::middleware('api.token')->group(function () {
+        // Аутентификация
+        Route::post('logout', [AuthController::class, 'logout']);
+        Route::get('me', [AuthController::class, 'me']);
+        Route::post('refresh-token', [AuthController::class, 'refreshToken']);
+    });
 });
