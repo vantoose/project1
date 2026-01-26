@@ -19,8 +19,11 @@ class UserSeeder extends Seeder
   public function run()
   {
     $password = Hash::make(Str::random(12));
+    $api_token = Hash::make(Str::random(12));
+    
     if (App::environment('local')) {
-      $password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
+      $password = Hash::make('password');
+      $api_token = Hash::make('password');
     }
 
     DB::table('users')->insert([
@@ -29,6 +32,7 @@ class UserSeeder extends Seeder
       'email_verified_at' => now(),
       'password' => $password,
       'remember_token' => Str::random(10),
+      'api_token' => $api_token,
     ]);
   }
 }

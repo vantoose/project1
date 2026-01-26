@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\V1\PostController;
+use App\Http\Controllers\Api\V1\AuthController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,3 +33,30 @@ Route::prefix('v1')->group(function () {
         Route::post('refresh-token', [AuthController::class, 'refreshToken']);
     });
 });
+
+
+/*
+
+curl -X POST http://127.0.0.1:6080/api/v1/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Test User",
+    "email": "test@ishipilov.ru",
+    "password": "password",
+    "password_confirmation": "password"
+  }'
+
+curl -X POST http://127.0.0.1:6080/api/v1/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "test@ishipilov.ru",
+    "password": "password"
+  }'
+
+curl -X GET http://127.0.0.1:6080/api/v1/me \
+  -H "Authorization: Bearer UE3LjrDFi2ZfczZRVqIwSyTGMBa6JDGo0cP4sfzPObPsIq2krwu8LSFQwk7o"
+
+curl -X POST http://127.0.0.1:6080/api/v1/logout \
+  -H "Authorization: Bearer UE3LjrDFi2ZfczZRVqIwSyTGMBa6JDGo0cP4sfzPObPsIq2krwu8LSFQwk7o"
+
+*/
