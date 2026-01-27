@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePost;
 use App\Http\Requests\UpdatePost;
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -37,7 +36,7 @@ class PostController extends Controller
 
   public function published(Request $request)
   {
-    $posts = POST::published()->ordered()
+    $posts = Post::published()->ordered()
     ->search($request->input('q'))
     ->paginate(20)->withQueryString();
     return view('posts.published')->withPosts($posts);

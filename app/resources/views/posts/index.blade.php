@@ -5,7 +5,7 @@
 
     <nav class="nav mb-3">
       @can('create', \App\Models\Post::class)
-        <a class="nav-link" href="{{ route('posts.create') }}">{{ __('Create') }}</a>
+        <a class="nav-link" href="{{ route('posts.create') }}">{{ __('routes.web.posts.create') }}</a>
       @endcan
     </nav>
 
@@ -77,7 +77,7 @@
               <input type="text" name="q" class="form-control" value="{{ request('q') }}">
             </div>
             <div class="col-auto">
-              <button type="submit" class="btn btn-primary">{{ __('Search') }}</button>
+              <button type="submit" class="btn btn-primary">{{ __('routes.web.posts.search') }}</button>
             </div>
           </div>
         </form>

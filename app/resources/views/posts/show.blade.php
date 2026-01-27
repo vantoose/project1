@@ -7,7 +7,7 @@
 
     <nav class="nav mb-3">
       @can('update', $post)
-        <a class="nav-link" href="{{ route('posts.edit', $post) }}">{{ __('Edit') }}</a>
+        <a class="nav-link" href="{{ route('posts.edit', $post) }}">{{ __('routes.web.posts.edit') }}</a>
       @endcan
     </nav>
 

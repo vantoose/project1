@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
    */
   public function run()
   {
-    $password = Hash::make(Str::random(12));
-    $api_token = Hash::make(Str::random(12));
+    $password = Hash::make(Str::random(10));
+    $api_token = Hash::make(Str::random(10));
     
     if (App::environment('local')) {
       $password = Hash::make('password');

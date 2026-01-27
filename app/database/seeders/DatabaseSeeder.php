@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Memo;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
     if (App::environment('local')) {
 
       User::factory(9)->create();
+      Memo::factory(99)->create();
       Post::factory(49)->create();
 
     }

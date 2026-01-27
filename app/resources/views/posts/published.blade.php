@@ -63,7 +63,7 @@
               <input type="text" name="q" class="form-control" value="{{ request('q') }}">
             </div>
             <div class="col-auto">
-              <button type="submit" class="btn btn-primary">{{ __('Search') }}</button>
+              <button type="submit" class="btn btn-primary">{{ __('routes.web.posts.search') }}</button>
             </div>
           </div>
         </form>

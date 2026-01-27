@@ -10,6 +10,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
+                @can('viewAny', \App\Models\Memo::class)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('memos.index') }}">{{ __('Memos') }}</a>
+                    </li>
+                @endcan
                 @can('viewAny', \App\Models\Post::class)
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('posts.index') }}">{{ __('Posts') }}</a>

@@ -84,6 +84,14 @@ class User extends Authenticatable
     }
 	
 	/**
+	 * Get the user's memos.
+	 */
+	public function memos()
+	{
+		return $this->hasMany(Memo::class);
+	}
+	
+	/**
 	 * Get the user's posts.
 	 */
 	public function posts()

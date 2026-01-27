@@ -7,7 +7,7 @@
       @can('delete', $post)
         <a href="{{ route('posts.destroy', $post) }}" class="nav-link text-danger"
           onclick="event.preventDefault(); let confirmed = confirm('Delete?'); if (confirmed) { document.getElementById('delete-post-{{ $post->id }}').submit(); }">
-          {{ __('Delete') }}
+          {{ __('routes.web.posts.destroy') }}
         </a>
         <form id="delete-post-{{ $post->id }}" action="{{ route('posts.destroy', $post) }}" method="POST" class="d-none">
           @method('DELETE')
@@ -33,7 +33,7 @@
         <label class="form-check-label" for="is_published">{{ __('Is published') }}</label>
       </div>
 
-      <button type="submit" class="btn btn-primary">{{ __('Update') }}</button>
+      <button type="submit" class="btn btn-primary">{{ __('routes.web.posts.update') }}</button>
     </form>
     
   </div>

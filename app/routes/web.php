@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MemoController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UploadController;
 
@@ -27,6 +28,8 @@ Auth::routes(['register' => env('AUTH_REGISTER', false), 'verify' => env('AUTH_V
 Route::get('home', [HomeController::class, 'index'])->name('home');
 Route::get('hash', [HomeController::class, 'hash'])->name('hash');
 Route::get('5bukv', [HomeController::class, 'bukv5'])->name('5bukv');
+
+Route::resource('memos', MemoController::class);
 
 Route::prefix('posts')->name('posts.')->group(function () {
   Route::get('published', [PostController::class, 'published'])->name('published');

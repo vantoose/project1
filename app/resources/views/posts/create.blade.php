@@ -10,11 +10,11 @@
       </div>
       
       <div class="form-group">
-        <textarea class="form-control" id="content" name="content" placeholder="Content" rows="5">{{ old('content') }}</textarea>
+        <textarea class="form-control" id="content" name="content" placeholder="Content" rows="12">{{ old('content') }}</textarea>
         <small class="form-text text-muted">Markdown guide: <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Basic Syntax</a></small>
       </div>
 
-      <button type="submit" class="btn btn-primary">{{ __('Store') }}</button>
+      <button type="submit" class="btn btn-primary">{{ __('routes.web.posts.store') }}</button>
     </form>
     
   </div>

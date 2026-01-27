@@ -29,6 +29,12 @@ Breadcrumbs::for('hash', function (BreadcrumbTrail $trail) {
     $trail->push(Lang::get('routes.web.hash'), route('hash'));
 });
 
+// Home > Memos
+Breadcrumbs::for('memos.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(Lang::get('routes.web.memos.index'), route('memos.index'));
+});
+
 // Home > Posts
 Breadcrumbs::for('posts.index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
