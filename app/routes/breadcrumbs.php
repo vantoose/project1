@@ -17,16 +17,28 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
     $trail->push(Lang::get('routes.web.home'), route('home'));
 });
 
-// Home > 5bukv
-Breadcrumbs::for('5bukv', function (BreadcrumbTrail $trail) {
+// Home > Posts (Guest)
+Breadcrumbs::for('homes.posts.index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push(Lang::get('routes.web.5bukv'), route('5bukv'));
+    $trail->push(Lang::get('routes.web.homes.posts.index'), route('homes.posts.index'));
+});
+
+// Home > Posts (Guest) > Show
+Breadcrumbs::for('homes.posts.show', function (BreadcrumbTrail $trail, Post $post) {
+    $trail->parent('homes.posts.index');
+    $trail->push($post->title, route('homes.posts.show', $post));
+});
+
+// Home > 5bukv
+Breadcrumbs::for('homes.5bukv', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(Lang::get('routes.web.homes.5bukv'), route('homes.5bukv'));
 });
 
 // Home > Hash
-Breadcrumbs::for('hash', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('homes.hash', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push(Lang::get('routes.web.hash'), route('hash'));
+    $trail->push(Lang::get('routes.web.homes.hash'), route('homes.hash'));
 });
 
 // Home > Memos
@@ -45,12 +57,6 @@ Breadcrumbs::for('posts.index', function (BreadcrumbTrail $trail) {
     }
 });
 
-// Home > Published Posts
-Breadcrumbs::for('posts.published', function (BreadcrumbTrail $trail) {
-    $trail->parent('posts.index');
-    $trail->push(Lang::get('routes.web.posts.published'), route('posts.published'));
-});
-
 // Home > Posts > Create
 Breadcrumbs::for('posts.create', function (BreadcrumbTrail $trail) {
     $trail->parent('posts.index');
@@ -60,9 +66,6 @@ Breadcrumbs::for('posts.create', function (BreadcrumbTrail $trail) {
 // Home > Posts > Show
 Breadcrumbs::for('posts.show', function (BreadcrumbTrail $trail, Post $post) {
     $trail->parent('posts.index');
-    if ($post->is_published) {
-        $trail->push(Lang::get('routes.web.posts.published'), route('posts.published'));
-    }
     $trail->push($post->title, route('posts.show', $post));
 });
 

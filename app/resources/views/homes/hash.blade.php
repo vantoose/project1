@@ -2,10 +2,10 @@
 
 @section('content')
 <div class="container">
-    <form method="GET" action="{{ route('hash') }}">
+    <form method="GET" action="{{ route('homes.hash') }}">
         <div class="form-row mb-3">
             <div class="col">
-                <input type="text" name="q" class="form-control" value="{{ $text }}">
+                <input type="query" name="q" class="form-control" placeholder="{{ __('Query') }}" value="{{ $query }}">
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary">{{ __('Make') }}</button>
@@ -13,8 +13,8 @@
         </div>
     </form>
     <dl class="row">
-        <dt class="col-sm-3">text</dt>
-        <dd class="col-sm-9 overflow-auto">{{ $text }}</dd>
+        <dt class="col-sm-3">query</dt>
+        <dd class="col-sm-9 overflow-auto">{{ $query }}</dd>
         <dt class="col-sm-3">hash</dt>
         <dd class="col-sm-9 overflow-auto">{{ $hash }}</dd>
     </dl>

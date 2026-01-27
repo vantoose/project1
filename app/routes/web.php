@@ -25,15 +25,19 @@ Route::get('/', function () {
 
 Auth::routes(['register' => env('AUTH_REGISTER', false), 'verify' => env('AUTH_VERIFY', false)]);
 
+
+Route::prefix('home')->name('homes.')->group(function () {
+  Route::get('hash', [HomeController::class, 'hash'])->name('hash');
+  Route::get('5bukv', [HomeController::class, 'bukv5'])->name('5bukv');
+  Route::prefix('posts')->name('posts.')->group(function () {
+    Route::get('/', [HomeController::class, 'posts_index'])->name('index');
+    Route::get('/{post}', [HomeController::class, 'posts_show'])->name('show');
+  });
+});
 Route::get('home', [HomeController::class, 'index'])->name('home');
-Route::get('hash', [HomeController::class, 'hash'])->name('hash');
-Route::get('5bukv', [HomeController::class, 'bukv5'])->name('5bukv');
 
 Route::resource('memos', MemoController::class);
 
-Route::prefix('posts')->name('posts.')->group(function () {
-  Route::get('published', [PostController::class, 'published'])->name('published');
-});
 Route::resource('posts', PostController::class);
 
 Route::prefix('uploads')->name('uploads.')->group(function () {

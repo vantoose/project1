@@ -29,6 +29,31 @@ class HomeController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function posts_index(Request $request)
+    {
+        $posts = Post::published()->ordered()
+        ->search($request->input('q'))
+        ->paginate(20)->withQueryString();
+        return view('homes.posts.index')->withPosts($posts);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function posts_show(Post $post)
+    {
+        return view('homes.posts.show')->withPost($post);
+    }
+
+    /**
      * Show hash.
      *
 	 * @param  \Illuminate\Http\Request  $request
@@ -36,10 +61,9 @@ class HomeController extends Controller
      */
     public function hash(Request $request)
     {
-        $text = $request->q ?: \Illuminate\Support\Str::random(8);
-        $hash = \Illuminate\Support\Facades\Hash::make($text);
-	    return view('hash')->with(['text' => $text, 'hash' => $hash]);
-        return ['text' => $text, 'hash' => $hash];
+        $query = $request->q ?: \Illuminate\Support\Str::random(8);
+        $hash = \Illuminate\Support\Facades\Hash::make($query);
+	    return view('homes.hash')->with(['query' => $query, 'hash' => $hash]);
     }
 
     /**
@@ -49,6 +73,6 @@ class HomeController extends Controller
      */
     public function bukv5()
     {
-        return view('bukv5');
+        return view('homes.bukv5');
     }
 }
