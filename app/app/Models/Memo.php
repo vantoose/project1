@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Validator;
 
 class Memo extends Model
 {
@@ -20,6 +21,18 @@ class Memo extends Model
 	protected $casts = [
 		'options' => 'array',
 	];
+
+	/**
+	 * Is URL.
+	 *
+	 * @return string
+	 */
+	public function getIsValidUrlAttribute()
+	{
+		$validator = Validator::make(['url' => $this->content], ['url' => 'url']);
+		if ($validator->passes()) return true;
+		return false;
+	}
 
 	/**
 	 * Get the user that owns the entity.

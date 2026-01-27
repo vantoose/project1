@@ -35,7 +35,11 @@
     <div class="list-group mb-3">
       @foreach ($memos as $memo)
         @can('view', $memo)
-          <div class="list-group-item" style="overflow-x: auto;">{{ $memo->content }}</div>
+          @if ($memo->is_valid_url)
+            <a href="{{ $memo->content }}" target="_blank" class="list-group-item list-group-item-action text-primary" style="overflow-x: auto;">{{ $memo->content }}</a>
+          @else
+            <div class="list-group-item" style="overflow-x: auto;">{{ $memo->content }}</div>
+          @endif
         @endcan
       @endforeach
     </div>
