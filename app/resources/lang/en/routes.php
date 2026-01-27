@@ -5,15 +5,15 @@ return [
     'welcome' => 'Welcome',
     'login' => 'Log in',
     'home' => 'Home',
-    'homes' => [
-      '5bukv' => '5 букв',
-      'hash' => 'Hash maker',
+    'public' => [
       'torrent' => 'Torrent',
       'posts' => [
         'index' => 'Posts',
         'search' => 'Search',
       ],
     ],
+    '5bukv' => '5 букв',
+    'hash' => 'Hash maker',
     'memos' => [
       'index' => 'Memos',
       'create' => 'Create',

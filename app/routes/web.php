@@ -25,17 +25,29 @@ Route::get('/', function () {
 
 Auth::routes(['register' => env('AUTH_REGISTER', false), 'verify' => env('AUTH_VERIFY', false)]);
 
+/**
+ * Public
+ */
 
-Route::prefix('home')->name('homes.')->group(function () {
-  Route::get('hash', [HomeController::class, 'hash'])->name('hash');
-  Route::get('5bukv', [HomeController::class, 'bukv5'])->name('5bukv');
+Route::prefix('public')->name('public.')->group(function () {
   Route::prefix('posts')->name('posts.')->group(function () {
     Route::get('/', [HomeController::class, 'posts_index'])->name('index');
     Route::get('/{post}', [HomeController::class, 'posts_show'])->name('show');
   });
-  Route::get('/uploads/{hash}/download', [HomeController::class, 'uploads_download'])->name('uploads.download');
+
+  Route::prefix('uploads')->name('uploads.')->group(function () {
+    Route::get('{hash}/download', [HomeController::class, 'uploads_download'])->name('download');
+  });
 });
+
 Route::get('home', [HomeController::class, 'index'])->name('home');
+
+Route::get('5bukv', [HomeController::class, 'bukv5'])->name('5bukv');
+Route::get('hash', [HomeController::class, 'hash'])->name('hash');
+
+/**
+ * Auth
+ */
 
 Route::resource('memos', MemoController::class);
 
@@ -45,7 +57,6 @@ Route::prefix('uploads')->name('uploads.')->group(function () {
   Route::get('{upload}/download', [UploadController::class, 'download'])->name('download');
 });
 Route::resource('uploads', UploadController::class)->except(['create', 'edit', 'update']);
-
 
 /**
  * Admin

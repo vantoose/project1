@@ -25,7 +25,7 @@
     <div class="list-group mb-3">
       @foreach ($posts as $post)
         @can('view', $post)
-          <a href="{{ route('homes.posts.show', $post) }}" class="list-group-item list-group-item-action" style="overflow-x: auto;">
+          <a href="{{ route('public.posts.show', $post) }}" class="list-group-item list-group-item-action" style="overflow-x: auto;">
             <div>{{ $post->title }}</div>
             <div class="small text-muted text-nowrap">
               <span>{{ DateHelper::isoFormat($post->published_at) }}</span>
@@ -44,13 +44,13 @@
     <!-- Форма поиска -->
     <div class="card mb-3">
       <div class="card-body">
-        <form method="GET" action="{{ route('homes.posts.index') }}">
+        <form method="GET" action="{{ route('public.posts.index') }}">
           <div class="form-row">
             <div class="col">
               <input type="text" name="q" class="form-control" value="{{ request('q') }}">
             </div>
             <div class="col-auto">
-              <button type="submit" class="btn btn-primary">{{ __('routes.web.homes.posts.search') }}</button>
+              <button type="submit" class="btn btn-primary">{{ __('routes.web.public.posts.search') }}</button>
             </div>
           </div>
         </form>

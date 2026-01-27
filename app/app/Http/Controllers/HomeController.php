@@ -30,7 +30,7 @@ class HomeController extends Controller
         $posts = Post::published()->ordered()
         ->search($request->input('q'))
         ->paginate(20)->withQueryString();
-        return view('homes.posts.index')->withPosts($posts);
+        return view('public.posts.index')->withPosts($posts);
     }
 
     /**
@@ -42,7 +42,7 @@ class HomeController extends Controller
     public function posts_show(Post $post)
     {
         $this->authorize('view', $post);
-        return view('homes.posts.show')->withPost($post);
+        return view('public.posts.show')->withPost($post);
     }
 
 	/**
@@ -66,7 +66,7 @@ class HomeController extends Controller
      */
     public function bukv5()
     {
-        return view('homes.bukv5');
+        return view('bukv5');
     }
 
     /**
@@ -79,6 +79,6 @@ class HomeController extends Controller
     {
         $query = $request->q ?: \Illuminate\Support\Str::random(8);
         $hash = \Illuminate\Support\Facades\Hash::make($query);
-	    return view('homes.hash')->with(['query' => $query, 'hash' => $hash]);
+	    return view('hash')->with(['query' => $query, 'hash' => $hash]);
     }
 }

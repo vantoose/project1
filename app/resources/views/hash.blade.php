@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <form method="GET" action="{{ route('homes.hash') }}">
+    <form method="GET" action="{{ route('hash') }}">
         <div class="form-row mb-3">
             <div class="col">
                 <input type="query" name="q" class="form-control" placeholder="{{ __('Query') }}" value="{{ $query }}">

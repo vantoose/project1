@@ -30,7 +30,7 @@
             <div class="mr-3">
               <a href="{{ route('uploads.download', $upload) }}" class="text-decoration-none">{{ $upload->name . "." . $upload->extension }}</a>
               <span>&mdash;</span>
-              <a href="{{ route('homes.uploads.download', $upload->public_hash) }}" class="text-decoration-none">{{ __('Public link') }}</a>
+              <a href="{{ route('public.uploads.download', $upload->public_hash) }}" class="text-decoration-none">{{ __('Public link') }}</a>
               <div class="small text-muted">
                 <span>[{{ $upload->id }}]</span>
                 <span>{{ DateHelper::isoFormat($upload->created_at) }}</span>

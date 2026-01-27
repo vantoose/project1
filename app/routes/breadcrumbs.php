@@ -18,27 +18,27 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
 });
 
 // Home > Posts (Guest)
-Breadcrumbs::for('homes.posts.index', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('public.posts.index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push(Lang::get('routes.web.homes.posts.index'), route('homes.posts.index'));
+    $trail->push(Lang::get('routes.web.public.posts.index'), route('public.posts.index'));
 });
 
 // Home > Posts (Guest) > Show
-Breadcrumbs::for('homes.posts.show', function (BreadcrumbTrail $trail, Post $post) {
-    $trail->parent('homes.posts.index');
-    $trail->push($post->title, route('homes.posts.show', $post));
+Breadcrumbs::for('public.posts.show', function (BreadcrumbTrail $trail, Post $post) {
+    $trail->parent('public.posts.index');
+    $trail->push($post->title, route('public.posts.show', $post));
 });
 
 // Home > 5bukv
-Breadcrumbs::for('homes.5bukv', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('5bukv', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push(Lang::get('routes.web.homes.5bukv'), route('homes.5bukv'));
+    $trail->push(Lang::get('routes.web.5bukv'), route('5bukv'));
 });
 
 // Home > Hash
-Breadcrumbs::for('homes.hash', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('hash', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
-    $trail->push(Lang::get('routes.web.homes.hash'), route('homes.hash'));
+    $trail->push(Lang::get('routes.web.hash'), route('hash'));
 });
 
 // Home > Memos
