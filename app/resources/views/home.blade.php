@@ -14,19 +14,11 @@
             @foreach ($posts as $post)
                 @can('view', $post)
                     <a href="{{ route('homes.posts.show', $post) }}" class="list-group-item list-group-item-action" style="overflow-x: auto;">
-                        <div class="d-flex align-items-center">
-                            <div class="mr-2">
-                                <div>{{ $post->title }}</div>
-                                <div class="small text-muted text-nowrap">
-                                    <span>{{ DateHelper::isoFormat($post->published_at) }}</span>
-                                    <span>&mdash;</span>
-                                    <span>{{ $post->user->name }}</span>
-                                </div>
-                            </div>
-
-                            <div class="ml-auto">
-                                <small>[{{ $post->id }}]</small>
-                            </div>
+                        <div>{{ $post->title }}</div>
+                        <div class="small text-muted text-nowrap">
+                            <span>{{ DateHelper::isoFormat($post->published_at) }}</span>
+                            <span>&mdash;</span>
+                            <span>{{ $post->user->name }}</span>
                         </div>
                     </a>
                 @endcan

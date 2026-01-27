@@ -8,16 +8,6 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //$this->middleware('auth');
-    }
-
-    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
@@ -50,7 +40,18 @@ class HomeController extends Controller
      */
     public function posts_show(Post $post)
     {
+        $this->authorize('view', $post);
         return view('homes.posts.show')->withPost($post);
+    }
+
+    /**
+     * Show 5bukv.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function bukv5()
+    {
+        return view('homes.bukv5');
     }
 
     /**
@@ -64,15 +65,5 @@ class HomeController extends Controller
         $query = $request->q ?: \Illuminate\Support\Str::random(8);
         $hash = \Illuminate\Support\Facades\Hash::make($query);
 	    return view('homes.hash')->with(['query' => $query, 'hash' => $hash]);
-    }
-
-    /**
-     * Show 5bukv.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function bukv5()
-    {
-        return view('homes.bukv5');
     }
 }

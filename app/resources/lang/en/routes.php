@@ -31,7 +31,6 @@ return [
       'update' => 'Update',
       'destroy' => 'Delete',
       'search' => 'Search',
-      'published' => 'Published',
     ],
     'uploads' => [
       'index' => 'Uploads',

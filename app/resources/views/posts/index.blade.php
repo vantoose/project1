@@ -32,16 +32,7 @@
       @foreach ($posts as $post)
         @can('view', $post)
           <a href="{{ route('posts.show', $post) }}" class="list-group-item list-group-item-action" style="overflow-x: auto;">
-            @if ($post->user->is(Auth::user()))
-              @if ($post->is_published)
-                <div class="mb-2">
-                  <span class="badge badge-light text-nowrap">{{ __('Published') }}</span>
-                </div>
-              @endif
-            @endif
-            <div class="d-flex align-items-center">
 
-              <div class="mr-2">
                 <div>{{ $post->title }}</div>
                 <div class="small text-muted text-nowrap">
                   @if ($post->is_published)
@@ -52,13 +43,12 @@
                   <span>&mdash;</span>
                   <span>{{ $post->user->name }}</span>
                 </div>
-              </div>
-              
-              <div class="ml-auto">
-                <small>[{{ $post->id }}]</small>
-              </div>
+                @if ($post->is_published)
+                  <div class="mt-2">
+                    <span class="badge badge-light text-nowrap">{{ __('Published') }}</span>
+                  </div>
+                @endif
 
-            </div>
           </a>
         @endcan
       @endforeach

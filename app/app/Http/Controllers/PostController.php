@@ -16,6 +16,7 @@ class PostController extends Controller
 	 */
 	public function __construct()
 	{
+    $this->middleware('auth');
 		$this->authorizeResource(Post::class, 'post');
 	}
 
@@ -32,14 +33,6 @@ class PostController extends Controller
     ->search($request->input('q'))
     ->paginate(20)->withQueryString();
     return view('posts.index')->withPosts($posts);
-  }
-
-  public function published(Request $request)
-  {
-    $posts = Post::published()->ordered()
-    ->search($request->input('q'))
-    ->paginate(20)->withQueryString();
-    return view('posts.published')->withPosts($posts);
   }
 
   /**
