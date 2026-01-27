@@ -21,15 +21,31 @@ class DatabaseSeeder extends Seeder
   {
     $this->call(UserSeeder::class);
 
+
 		$role_admin = Role::where('name', 'admin')->first();
 		if (! $role_admin) $role_admin = Role::create(['name' => 'admin']);
 
 		$permission_login_as = Permission::where('name', 'login as')->first();
 		if (! $permission_login_as) $permission_login_as = Permission::create(['name' => 'login as']);
 
-		$role_admin->syncPermissions($permission_login_as);
+    $role_admin->syncPermissions($permission_login_as);
 
-		User::find(1)->syncRoles($role_admin);
+		$permission_memos = Permission::where('name', 'manage memos')->first();
+		if (! $permission_memos) $permission_memos = Permission::create(['name' => 'manage memos']);
+
+		$permission_posts = Permission::where('name', 'manage posts')->first();
+		if (! $permission_posts) $permission_posts = Permission::create(['name' => 'manage posts']);
+
+		$permission_uploads = Permission::where('name', 'manage uploads')->first();
+		if (! $permission_uploads) $permission_uploads = Permission::create(['name' => 'manage uploads']);
+
+
+		User::find(1)->syncRoles($role_admin)
+    ->syncPermissions([
+      $permission_memos,
+      $permission_posts,
+      $permission_uploads,
+    ]);
 
     if (App::environment('local')) {
 
