@@ -132,7 +132,7 @@ class Upload extends Model
 	public function getPublicUrlAttribute()
 	{
 		if (!$this->public_hash) return null;
-		return route('uploads.public.download', $this->public_hash);
+		return route('homes.uploads.download', $this->public_hash);
 	}
 
 	/**

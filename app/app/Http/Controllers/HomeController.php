@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Upload;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -42,6 +43,20 @@ class HomeController extends Controller
     {
         $this->authorize('view', $post);
         return view('homes.posts.show')->withPost($post);
+    }
+
+	/**
+	 * Download the specified resource.
+	 *
+	 * @param  String  $hash
+	 * @return \Illuminate\Http\Response
+	 */
+
+    public function uploads_download($hash)
+    {
+        $upload = Upload::findByHash($hash);
+        if (!$upload) abort(404, 'Файл не найден');
+        return $upload->download();
     }
 
     /**

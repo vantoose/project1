@@ -33,6 +33,7 @@ Route::prefix('home')->name('homes.')->group(function () {
     Route::get('/', [HomeController::class, 'posts_index'])->name('index');
     Route::get('/{post}', [HomeController::class, 'posts_show'])->name('show');
   });
+  Route::get('/uploads/{hash}/download', [HomeController::class, 'uploads_download'])->name('uploads.download');
 });
 Route::get('home', [HomeController::class, 'index'])->name('home');
 
@@ -42,7 +43,6 @@ Route::resource('posts', PostController::class);
 
 Route::prefix('uploads')->name('uploads.')->group(function () {
   Route::get('{upload}/download', [UploadController::class, 'download'])->name('download');
-  Route::get('/download/{hash}', [UploadController::class, 'publicDownload'])->name('public.download');
 });
 Route::resource('uploads', UploadController::class)->except(['create', 'edit', 'update']);
 
