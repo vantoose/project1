@@ -34,6 +34,7 @@
                     </a>
                 @endcan
             @endforeach
+            <a href="{{ route('posts.published') }}" class="list-group-item list-group-item-action" style="overflow-x: auto;">...</a>
         </div>
     </div>
 

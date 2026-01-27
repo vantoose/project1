@@ -54,6 +54,9 @@ Breadcrumbs::for('posts.create', function (BreadcrumbTrail $trail) {
 // Home > Posts > Show
 Breadcrumbs::for('posts.show', function (BreadcrumbTrail $trail, Post $post) {
     $trail->parent('posts.index');
+    if ($post->is_published) {
+        $trail->push(Lang::get('routes.web.posts.published'), route('posts.published'));
+    }
     $trail->push($post->title, route('posts.show', $post));
 });
 
