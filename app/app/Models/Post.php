@@ -58,7 +58,7 @@ class Post extends Model
 	 * @param  \Illuminate\Database\Eloquent\Builder  $query
 	 * @return void
 	 */
-	public function scopeOrdered($query)
+	public function scopeOrdered(Builder $query)
 	{
 		$query->orderByRaw('CASE WHEN deleted_at IS NOT NULL THEN TRUE ELSE FALSE END, deleted_at DESC')
 		->orderByDesc('published_at')

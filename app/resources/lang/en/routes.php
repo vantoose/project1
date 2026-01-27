@@ -11,6 +11,7 @@ return [
       'index' => 'Posts',
       'create' => 'Create',
       'edit' => 'Edit',
+      'published' => 'Published',
     ],
     'uploads' => [
       'index' => 'Uploads',

@@ -35,6 +35,14 @@ class PostController extends Controller
     return view('posts.index')->withPosts($posts);
   }
 
+  public function published(Request $request)
+  {
+    $posts = POST::published()->ordered()
+    ->search($request->input('q'))
+    ->paginate(20)->withQueryString();
+    return view('posts.published')->withPosts($posts);
+  }
+
   /**
    * Show the form for creating a new resource.
    *

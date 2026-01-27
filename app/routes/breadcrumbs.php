@@ -39,6 +39,12 @@ Breadcrumbs::for('posts.index', function (BreadcrumbTrail $trail) {
     }
 });
 
+// Home > Published Posts
+Breadcrumbs::for('posts.published', function (BreadcrumbTrail $trail) {
+    $trail->parent('posts.index');
+    $trail->push(Lang::get('routes.web.posts.published'), route('posts.published'));
+});
+
 // Home > Posts > Create
 Breadcrumbs::for('posts.create', function (BreadcrumbTrail $trail) {
     $trail->parent('posts.index');
