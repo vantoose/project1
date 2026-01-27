@@ -7,6 +7,7 @@ return [
     'home' => 'Home',
     '5bukv' => '5 букв',
     'hash' => 'Hash maker',
+    'torrent' => 'Torrent',
     'posts' => [
       'index' => 'Posts',
       'create' => 'Create',
