@@ -24,10 +24,12 @@
             <td>
               <dl class="row mb-0">
                 @foreach($user->roles as $role)
-                  <dt class="col-sm-3">{{ $role->name }}</dt>
+                  <dt class="col-sm-3">
+                    <span class="badge badge-primary">{{ $role->name }}</span>
+                  </dt>
                   <dd class="col-sm-9">
                     @foreach($role->getPermissionNames() as $permission_name)
-                      <div>{{ $permission_name }}</div>
+                      <span class="badge badge-secondary">{{ $permission_name }}</span>
                     @endforeach
                   </dd>
                 @endforeach
@@ -35,7 +37,7 @@
             </td>
             <td>
               @foreach($user->getDirectPermissions() as $permission)
-                <div>{{ $permission->name }}</div>
+                <span class="badge badge-secondary">{{ $permission->name }}</span>
               @endforeach
             </td>
             <td>

@@ -49,22 +49,30 @@ Route::get('hash', [HomeController::class, 'hash'])->name('hash');
  * Auth
  */
 
-Route::resource('memos', MemoController::class);
+Route::middleware(['can:manage memos'])->resource('memos', MemoController::class);
 
-Route::resource('posts', PostController::class);
+Route::middleware(['can:manage posts'])->resource('posts', PostController::class);
 
-Route::prefix('uploads')->name('uploads.')->group(function () {
-  Route::get('{upload}/download', [UploadController::class, 'download'])->name('download');
+Route::middleware(['can:manage uploads'])->group(function () {
+
+  Route::prefix('uploads')->name('uploads.')->group(function () {
+    Route::get('{upload}/download', [UploadController::class, 'download'])->name('download');
+  });
+  Route::resource('uploads', UploadController::class)->except(['create', 'edit', 'update']);
+  
 });
-Route::resource('uploads', UploadController::class)->except(['create', 'edit', 'update']);
 
 /**
  * Admin
  */
 
-Route::prefix('admin')->name('admin.')->middleware(['role:admin'])->group(function () {
-  Route::prefix('users')->name('users.')->group(function () {
-		Route::get('{user}/login_as', [App\Http\Controllers\Admin\UserController::class, 'login_as'])->name('login_as');
-	});
-	Route::resource('users', App\Http\Controllers\Admin\UserController::class)->only(['index']);
+Route::middleware(['role:admin'])->group(function () {
+
+  Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('users')->name('users.')->group(function () {
+      Route::get('{user}/login_as', [App\Http\Controllers\Admin\UserController::class, 'login_as'])->name('login_as');
+    });
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class)->only(['index']);
+  });
+
 });
