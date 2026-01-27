@@ -96,6 +96,13 @@ class UploadController extends Controller
     return $upload->download();
 	}
 
+  public function publicDownload($hash)
+  {
+    $upload = Upload::findByHash($hash);
+    if (!$upload) abort(404, 'Файл не найден');
+    return $upload->download();
+  }
+
   /**
    * Show the form for editing the specified resource.
    *

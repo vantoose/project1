@@ -42,8 +42,10 @@ Route::resource('posts', PostController::class);
 
 Route::prefix('uploads')->name('uploads.')->group(function () {
   Route::get('{upload}/download', [UploadController::class, 'download'])->name('download');
+  Route::get('/download/{hash}', [UploadController::class, 'publicDownload'])->name('public.download');
 });
 Route::resource('uploads', UploadController::class)->except(['create', 'edit', 'update']);
+
 
 /**
  * Admin

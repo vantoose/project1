@@ -19,6 +19,12 @@ class Upload extends Model
 	 */
 	protected static function booted()
 	{
+		static::creating(function ($upload) {
+			if (empty($upload->public_hash)) {
+				$upload->public_hash = $upload->generateHash();
+			}
+		});
+		
 		static::deleting(function ($upload) {
 			Storage::delete($upload->path);
 		});
@@ -52,7 +58,8 @@ class Upload extends Model
 		'lastModified',
 		'absolutePath',
 		'size',
-		'url'
+		'url',
+    	'public_url',
 	];
 
 	/**
@@ -118,6 +125,17 @@ class Upload extends Model
 	}
 
 	/**
+	 * 
+	 * 
+	 * 
+	 */
+	public function getPublicUrlAttribute()
+	{
+		if (!$this->public_hash) return null;
+		return route('uploads.public.download', $this->public_hash);
+	}
+
+	/**
 	 * Scope a query to ordered entities.
 	 *
 	 * @param  \Illuminate\Database\Eloquent\Builder  $query
@@ -146,6 +164,7 @@ class Upload extends Model
 		$upload->name = $name;
 		$upload->options = $attributes['options'];
 		$upload->user_id = $attributes['user_id'];
+    	$upload->public_hash = $upload->generateHash();
 		$upload->save();
 		return $upload;
 	}
@@ -157,6 +176,28 @@ class Upload extends Model
 	 */
 	public function download()
 	{
-	 return Storage::download($this->path, $this->name . '.' . $this->extension);
+		$this->public_hash = $this->generateHash();
+		$this->save();
+		return Storage::download($this->path, $this->name . '.' . $this->extension);
+	}
+
+	/**
+	 * 
+	 * 
+	 * 
+	 */
+	public function generateHash()
+	{
+		return hash('sha256', uniqid() . microtime() . $this->id . rand(1000, 9999));
+	}
+
+	/**
+	 * 
+	 * 
+	 * 
+	 */
+	public static function findByHash($hash)
+	{
+		return static::where('public_hash', $hash)->first();
 	}
 }

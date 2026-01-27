@@ -21,6 +21,8 @@ return new class extends Migration
 
 			$table->string('path');
 			$table->string('name');
+
+            $table->string('public_hash', 64)->nullable()->unique();
 			
 			$table->json('options')->nullable();
 			
