@@ -29,15 +29,17 @@
           @if (empty($upload->deleted_at))
             <div class="d-flex">
               <div class="mr-3">
-                <a href="{{ route('uploads.download', $upload) }}" class="text-decoration-none">{{ $upload->name . "." . $upload->extension }}</a>
+                <span>{{ $upload->name . "." . $upload->extension }}</span>
                 <div class="small text-muted">
                   <span>[{{ $upload->id }}]</span>
                   <span>{{ DateHelper::isoFormat($upload->created_at) }}</span>
                   <span>&mdash;</span>
                   <span>{{ FileHelper::formatSizeUnits($upload->size) }}</span>
                 </div>
-
-                <div>{{ $upload->public_url }}</div>
+                <div class="mt-1">
+                  <a role="button" class="btn btn-link text-decoration-none" href="{{ route('uploads.download', $upload) }}">{{ __('routes.web.uploads.download') }}</a>
+                  <button type="button" class="btn btn-link text-decoration-none" onclick="event.preventDefault(); copyToClipboard('{{ $upload->public_url }}');">{{ __('Copy public link') }}</button>
+                </div>
               </div>
 
               <div class="ml-auto">
@@ -101,6 +103,15 @@ window.addEventListener('load', function() { $( document ).ready(function() {
 
 @push('script')
 <script type="text/javascript">
+function copyToClipboard(text) {
+  let textarea = document.createElement('textarea')
+  textarea.value = text
+  document.body.appendChild(textarea)
+  textarea.select()
+  let result = document.execCommand('copy')
+  document.body.removeChild(textarea)
+  return result
+}
 </script>
 @endpush
 
