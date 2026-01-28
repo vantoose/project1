@@ -10,21 +10,30 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                @can('viewAny', \App\Models\Memo::class)
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('home') }}">{{ __('routes.web.home') }}</a>
+                </li>
+                @guest
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('memos.index') }}">{{ __('Memos') }}</a>
+                        <a class="nav-link" href="{{ route('public.posts.index') }}">{{ __('routes.web.public.posts.index') }}</a>
                     </li>
-                @endcan
-                @can('viewAny', \App\Models\Post::class)
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('posts.index') }}">{{ __('Posts') }}</a>
-                    </li>
-                @endcan
-                @can('viewAny', \App\Models\Upload::class)
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('uploads.index') }}">{{ __('Uploads') }}</a>
-                    </li>
-                @endcan
+                @else
+                    @can('memos')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('memos.index') }}">{{ __('routes.web.memos.index') }}</a>
+                        </li>
+                    @endcan
+                    @can('posts')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('posts.index') }}">{{ __('routes.web.posts.index') }}</a>
+                        </li>
+                    @endcan
+                    @can('uploads')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('uploads.index') }}">{{ __('routes.web.uploads.index') }}</a>
+                        </li>
+                    @endcan
+                @endguest
             </ul>
 
             <!-- Right Side Of Navbar -->

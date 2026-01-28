@@ -25,46 +25,36 @@
 
     <div class="list-group mb-3">
       @foreach ($uploads as $upload)
-        <div class="list-group-item" style="overflow-x: auto;">
+        <div class="list-group-item d-flex" style="overflow-x: auto;">
           @if (empty($upload->deleted_at))
-            <div class="d-flex">
-              <div class="mr-3">
-                <a href="{{ route('uploads.download', $upload) }}" class="text-decoration-none">{{ $upload->name . "." . $upload->extension }}</a>
-                <div class="small text-muted">
-                  <span>[{{ $upload->id }}]</span>
-                  <span>{{ DateHelper::isoFormat($upload->created_at) }}</span>
-                  <span>&mdash;</span>
-                  <span>{{ FileHelper::formatSizeUnits($upload->size) }}</span>
-                </div>
-
-                <div>{{ $upload->public_url }}</div>
-              </div>
-
-              <div class="ml-auto">
-                <a href="{{ route('uploads.destroy', $upload) }}" class="text-decoration-none text-danger" 
-                onclick="event.preventDefault(); let confirmed = confirm('Delete?'); if (confirmed) { document.getElementById('delete-upload-{{ $upload->id }}').submit(); }">
-                  {{ __('Delete') }}
-                </a>
-                <form id="delete-upload-{{ $upload->id }}" action="{{ route('uploads.destroy', $upload) }}" method="POST" class="d-none">
-                  @method('DELETE')
-                  @csrf
-                </form>
+            <div class="mr-3">
+              <a href="{{ route('uploads.download', $upload) }}" class="text-decoration-none">{{ $upload->name . "." . $upload->extension }}</a>
+              <span>&mdash;</span>
+              <a href="{{ route('public.uploads.download', $upload->public_hash) }}" class="text-decoration-none">{{ __('Public link') }}</a>
+              <div class="small text-muted">
+                <span>[{{ $upload->id }}]</span>
+                <span>{{ DateHelper::isoFormat($upload->created_at) }}</span>
+                <span>&mdash;</span>
+                <span>{{ FileHelper::formatSizeUnits($upload->size) }}</span>
               </div>
             </div>
+            <a href="{{ route('uploads.destroy', $upload) }}" class="text-decoration-none text-danger ml-auto"
+            onclick="event.preventDefault(); let confirmed = confirm('Delete?'); if (confirmed) { document.getElementById('delete-upload-{{ $upload->id }}').submit(); }">
+              {{ __('Delete') }}
+            </a>
+            <form id="delete-upload-{{ $upload->id }}" action="{{ route('uploads.destroy', $upload) }}" method="POST" class="d-none">
+              @method('DELETE')
+              @csrf
+            </form>
           @else
-            <div class="d-flex">
-              <div class="mr-3">
-                <span>{{ $upload->name . "." . $upload->extension }}</span>
-                <div class="small text-muted">
-                  <span>[{{ $upload->id }}]</span>
-                  <span>{{ DateHelper::isoFormat($upload->created_at) }}</span>
-                </div>
-              </div>
-
-              <div class="ml-auto">
-                <span class="text-danger text-nowrap">{{ DateHelper::isoFormat($upload->deleted_at) }}</span>
+            <div class="mr-3">
+              <span>{{ $upload->name . "." . $upload->extension }}</span>
+              <div class="small text-muted">
+                <span>[{{ $upload->id }}]</span>
+                <span>{{ DateHelper::isoFormat($upload->created_at) }}</span>
               </div>
             </div>
+            <span class="text-danger text-nowrap ml-auto">{{ DateHelper::isoFormat($upload->deleted_at) }}</span>
           @endif
         </div>
       @endforeach
@@ -96,11 +86,6 @@ window.addEventListener('load', function() { $( document ).ready(function() {
   })
 
 });});
-</script>
-@endpush
-
-@push('script')
-<script type="text/javascript">
 </script>
 @endpush
 

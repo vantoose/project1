@@ -24,7 +24,7 @@
       </div>
       
       <div class="form-group">
-        <textarea class="form-control" id="content" name="content" placeholder="Text" rows="5">{{ old('content', $post->content) }}</textarea>
+        <textarea class="form-control" id="content" name="content" placeholder="Text" rows="12">{{ old('content', $post->content) }}</textarea>
         <small class="form-text text-muted"><a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Markdown guide - Basic Syntax</a></small>
       </div>
 

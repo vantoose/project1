@@ -8,6 +8,18 @@
         <a href="" class="list-group-item list-group-item-action disabled">{{ __('routes.web.public.torrent') }}</a>
     </div>
 
+    @can('memos')
+        <form method="POST" action="{{ route('memos.store') }}" class="mb-3">
+        @csrf
+
+        <div class="form-group">
+            <textarea class="form-control" id="content" name="content" placeholder="{{ __('routes.web.memos.index') }}" rows="3">{{ old('content') }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">{{ __('routes.web.memos.store') }}</button>
+        </form>
+    @endcan
+
     <div class="card">
         <div class="card-header">{{ __('routes.web.public.posts.index') }}</div>
         <div class="list-group list-group-flush">

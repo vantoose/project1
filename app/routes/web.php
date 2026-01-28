@@ -49,11 +49,11 @@ Route::get('hash', [HomeController::class, 'hash'])->name('hash');
  * Auth
  */
 
-Route::middleware(['can:manage memos'])->resource('memos', MemoController::class);
+Route::middleware(['can:memos'])->resource('memos', MemoController::class);
 
-Route::middleware(['can:manage posts'])->resource('posts', PostController::class);
+Route::middleware(['can:posts'])->resource('posts', PostController::class);
 
-Route::middleware(['can:manage uploads'])->group(function () {
+Route::middleware(['can:uploads'])->group(function () {
 
   Route::prefix('uploads')->name('uploads.')->group(function () {
     Route::get('{upload}/download', [UploadController::class, 'download'])->name('download');

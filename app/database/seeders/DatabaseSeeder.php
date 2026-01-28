@@ -30,20 +30,20 @@ class DatabaseSeeder extends Seeder
 		$permission_login_as = Permission::where('name', 'login as')->first();
 		if (! $permission_login_as) $permission_login_as = Permission::create(['name' => 'login as']);
 
-		$permission_memos = Permission::where('name', 'manage memos')->first();
-		if (! $permission_memos) $permission_memos = Permission::create(['name' => 'manage memos']);
+		$permission_memos = Permission::where('name', 'memos')->first();
+		if (! $permission_memos) $permission_memos = Permission::create(['name' => 'memos']);
 
-		$permission_posts = Permission::where('name', 'manage posts')->first();
-		if (! $permission_posts) $permission_posts = Permission::create(['name' => 'manage posts']);
+		$permission_posts = Permission::where('name', 'posts')->first();
+		if (! $permission_posts) $permission_posts = Permission::create(['name' => 'posts']);
 
-		$permission_uploads = Permission::where('name', 'manage uploads')->first();
-		if (! $permission_uploads) $permission_uploads = Permission::create(['name' => 'manage uploads']);
+		$permission_uploads = Permission::where('name', 'uploads')->first();
+		if (! $permission_uploads) $permission_uploads = Permission::create(['name' => 'uploads']);
 
     $role_admin->syncPermissions([$permission_login_as]);
-    $role_user->syncPermissions([$permission_memos, $permission_posts]);
+    $role_user->syncPermissions([$permission_memos]);
 
 		User::find(1)->syncRoles([$role_admin, $role_user])
-    ->syncPermissions([$permission_uploads]);
+    ->syncPermissions([$permission_posts, $permission_uploads]);
 
     if (App::environment('local')) {
 
@@ -52,16 +52,9 @@ class DatabaseSeeder extends Seeder
       Post::factory(99)->create();
 
       User::find(2)->syncRoles([$role_user]);
-      User::find(3)->syncPermissions([
-        $permission_memos,
-        $permission_posts,
-      ]);
-      User::find(4)->syncPermissions([
-        $permission_memos,
-      ]);
-      User::find(5)->syncPermissions([
-        $permission_posts,
-      ]);
+      User::find(3)->syncPermissions([$permission_memos, $permission_posts]);
+      User::find(4)->syncPermissions([$permission_memos]);
+      User::find(5)->syncPermissions([$permission_posts]);
 
     }
   }

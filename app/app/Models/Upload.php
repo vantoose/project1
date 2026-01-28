@@ -26,6 +26,8 @@ class Upload extends Model
 		});
 		
 		static::deleting(function ($upload) {
+			$upload->public_hash = null;
+			$upload->save();
 			Storage::delete($upload->path);
 		});
 	}
