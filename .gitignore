@@ -1,3 +1,4 @@
 /config/laravel/.env
 /logs/laravel/*
 /logs/nginx/*
+.env.production
