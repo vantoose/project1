@@ -5,10 +5,7 @@
     <div class="list-group mb-3">
         <a href="{{ route('5bukv') }}" class="list-group-item list-group-item-action">{{ __('routes.web.5bukv') }}</a>
         <a href="{{ route('hash') }}" class="list-group-item list-group-item-action">{{ __('routes.web.hash') }}</a>
-        <a href="" class="list-group-item list-group-item-action disabled">{{ __('routes.web.public.torrent') }}</a>
     </div>
-
-    <hr/>
 
     @can('memos')
         <form method="POST" action="{{ route('memos.store') }}" class="mb-3">

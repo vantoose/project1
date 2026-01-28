@@ -51,10 +51,10 @@ class DatabaseSeeder extends Seeder
       Memo::factory(999)->create();
       Post::factory(99)->create();
 
-      User::find(2)->syncRoles([$role_user]);
-      User::find(3)->syncPermissions([$permission_memos, $permission_posts]);
-      User::find(4)->syncPermissions([$permission_memos]);
-      User::find(5)->syncPermissions([$permission_posts]);
+      User::find(2)->syncRoles([$role_user])->syncPermissions([$permission_uploads]);
+      User::find(3)->syncPermissions([$permission_memos]);
+      User::find(4)->syncPermissions([$permission_memos, $permission_posts]);
+      User::find(5)->syncPermissions([$permission_memos, $permission_posts, $permission_uploads]);
 
     }
   }
