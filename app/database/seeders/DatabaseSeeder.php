@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
     if (App::environment('local')) {
 
       User::factory(9)->create();
-      Memo::factory(99)->create();
+      Memo::factory(999)->create();
       Post::factory(99)->create();
 
       User::find(2)->syncRoles([$role_user]);

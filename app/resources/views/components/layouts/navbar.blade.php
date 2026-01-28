@@ -18,6 +18,12 @@
                         <a class="nav-link" href="{{ route('public.posts.index') }}">{{ __('routes.web.public.posts.index') }}</a>
                     </li>
                 @else
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('Public') }}</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('public.posts.index') }}">{{ __('routes.web.public.posts.index') }}</a>
+                        </div>
+                    </li>
                     @can('memos')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('memos.index') }}">{{ __('routes.web.memos.index') }}</a>
