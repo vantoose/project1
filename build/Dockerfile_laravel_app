@@ -39,7 +39,8 @@ RUN apt-get clean \
 
 # Создание пользователя
 RUN groupadd -g 1000 www && \
-    useradd -u 1000 -ms /bin/bash -g www www
+    useradd -u 1000 -ms /bin/bash -g www www && \
+    echo "www:password" | chpasswd
 
 # Настройка рабочей директории
 WORKDIR /var/www
