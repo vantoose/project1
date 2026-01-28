@@ -2,5 +2,6 @@
 /config/nginx/conf.d/app.conf.prod
 /logs/laravel/*
 /logs/nginx/*
+/scripts/*
 .env.prod
 docker-compose.yml.prod
