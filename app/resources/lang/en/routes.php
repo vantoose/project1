@@ -12,8 +12,6 @@ return [
         'search' => 'Search',
       ],
     ],
-    '5bukv' => '5 букв',
-    'hash' => 'Hash maker',
     'memos' => [
       'index' => 'Memos',
       'create' => 'Create',
@@ -37,11 +35,16 @@ return [
       'destroy' => 'Delete',
       'download' => 'Download',
     ],
+    'chat' => [
+      'index' => 'Chat',
+    ],
     'admin' => [
       'index' => 'Admin',
       'users' => [
         'index' => 'Users',
       ],
     ],
+    '5bukv' => '5 букв',
+    'hash' => 'Hash maker',
   ]
 ];

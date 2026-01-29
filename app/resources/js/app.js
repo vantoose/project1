@@ -21,6 +21,7 @@ window.Vue = require('vue').default;
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('vue-overlay-spinner', require('./components/OverlaySpinner.vue').default);
+Vue.component('vue-chat-room', require('./components/ChatRoom.vue').default);
 Vue.component('vue-bukv5', require('./components/Bukv5.vue').default);
 
 /**

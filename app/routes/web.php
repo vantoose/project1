@@ -63,7 +63,7 @@ Route::middleware(['can:uploads'])->group(function () {
   
 });
 
-Route::prefix('chat')->name('chat.')->middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->prefix('chat')->name('chat.')->group(function () {
     Route::get('/', [ChatController::class, 'index'])->name('index');
     Route::get('/room/{room}', [ChatController::class, 'show'])->name('room');
     Route::post('/room/{room}/message', [ChatController::class, 'sendMessage'])->name('send');
