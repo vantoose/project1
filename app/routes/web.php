@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemoController;
 use App\Http\Controllers\PostController;
@@ -60,6 +61,15 @@ Route::middleware(['can:uploads'])->group(function () {
   });
   Route::resource('uploads', UploadController::class)->except(['create', 'edit', 'update']);
   
+});
+
+Route::prefix('chat')->name('chat.')->middleware(['auth'])->group(function () {
+    Route::get('/', [ChatController::class, 'index'])->name('index');
+    Route::get('/room/{room}', [ChatController::class, 'show'])->name('room');
+    Route::post('/room/{room}/message', [ChatController::class, 'sendMessage'])->name('send');
+    Route::post('/room/{room}/join', [ChatController::class, 'joinRoom'])->name('join');
+    Route::post('/room/{room}/leave', [ChatController::class, 'leaveRoom'])->name('leave');
+    Route::get('/room/{room}/messages', [ChatController::class, 'getNewMessages'])->name('messages');
 });
 
 /**

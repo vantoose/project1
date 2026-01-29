@@ -106,4 +106,20 @@ class User extends Authenticatable
 	{
 		return $this->hasMany(Upload::class);
 	}
+	
+	/**
+	 * Get the user's chat messages.
+	 */
+    public function chatMessages()
+    {
+        return $this->hasMany(ChatMessage::class);
+    }
+	
+	/**
+	 * Get the user's chat rooms.
+	 */
+    public function chatRooms()
+    {
+        return $this->belongsToMany(ChatRoom::class, 'chat_room_user');
+    }
 }

@@ -57,5 +57,7 @@ class DatabaseSeeder extends Seeder
       User::find(5)->syncPermissions([$permission_memos, $permission_posts, $permission_uploads]);
 
     }
+
+    $this->call(ChatSeeder::class);
   }
 }
