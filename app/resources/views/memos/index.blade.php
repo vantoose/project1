@@ -48,21 +48,23 @@
       {{ $memos->links() }}
     </div>
 
-    <!-- Форма поиска -->
-    <div class="card mb-3">
-      <div class="card-body">
-        <form method="GET" action="{{ route('memos.index') }}">
-          <div class="form-row">
-            <div class="col">
-              <input type="text" name="q" class="form-control" value="{{ request('q') }}">
+    @if (count($memos))
+      <!-- Форма поиска -->
+      <div class="card mb-3">
+        <div class="card-body">
+          <form method="GET" action="{{ route('memos.index') }}">
+            <div class="form-row">
+              <div class="col">
+                <input type="text" name="q" class="form-control" value="{{ request('q') }}">
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary">{{ __('Search') }}</button>
+              </div>
             </div>
-            <div class="col-auto">
-              <button type="submit" class="btn btn-primary">{{ __('Search') }}</button>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    @endif
     
   </div>
 @endsection

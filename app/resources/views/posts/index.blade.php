@@ -58,21 +58,23 @@
       {{ $posts->links() }}
     </div>
 
-    <!-- Форма поиска -->
-    <div class="card mb-3">
-      <div class="card-body">
-        <form method="GET" action="{{ route('posts.index') }}">
-          <div class="form-row">
-            <div class="col">
-              <input type="text" name="q" class="form-control" value="{{ request('q') }}">
+    @if (count($posts))
+      <!-- Форма поиска -->
+      <div class="card mb-3">
+        <div class="card-body">
+          <form method="GET" action="{{ route('posts.index') }}">
+            <div class="form-row">
+              <div class="col">
+                <input type="text" name="q" class="form-control" value="{{ request('q') }}">
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary">{{ __('routes.web.posts.search') }}</button>
+              </div>
             </div>
-            <div class="col-auto">
-              <button type="submit" class="btn btn-primary">{{ __('routes.web.posts.search') }}</button>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    @endif
     
   </div>
 @endsection

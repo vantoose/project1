@@ -17,7 +17,7 @@ class MemoFactory extends Factory
      */
     public function definition()
     {
-		$user_id = User::all()->random()->id;
+		$user_id = User::all()->except(1)->random()->id;
 		return [
 			'content' => $this->faker->text($maxNbChars = 100),
 			'user_id' => $user_id,
