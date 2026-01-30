@@ -41,6 +41,12 @@ Breadcrumbs::for('hash', function (BreadcrumbTrail $trail) {
     $trail->push(Lang::get('routes.web.hash'), route('hash'));
 });
 
+// Home > Chat
+Breadcrumbs::for('chat.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push(Lang::get('routes.web.chat.index'), route('chat.index'));
+});
+
 // Home > Memos
 Breadcrumbs::for('memos.index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');

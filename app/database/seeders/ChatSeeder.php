@@ -18,7 +18,7 @@ class ChatSeeder extends Seeder
     public function run()
     {
         // Создаем тестовых пользователей
-        $users = User::factory(5)->create();
+        $users = User::all();
         
         // Создаем комнаты
         $generalRoom = ChatRoom::create([

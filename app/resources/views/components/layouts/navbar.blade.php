@@ -24,14 +24,11 @@
                             <a class="dropdown-item" href="{{ route('public.posts.index') }}">{{ __('routes.web.public.posts.index') }}</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('routes.web.chat.index') }}</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            @foreach (Auth::user()->chatRooms as $chatRoom)
-                                <a class="dropdown-item" href="#">{{ $chatRoom->name }}</a>
-                            @endforeach
-                        </div>
-                    </li>
+                    @can('chat')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('chat.index') }}">{{ __('routes.web.chat.index') }}</a>
+                        </li>
+                    @endcan
                     @can('memos')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('memos.index') }}">{{ __('routes.web.memos.index') }}</a>

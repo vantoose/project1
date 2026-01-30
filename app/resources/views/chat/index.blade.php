@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-	<vue-chat-room url="{{ route('chat.messages', 1) }}"/>
+	<vue-chat-room url="{{ route('chat.index') }}"/>
 
 </div>
 @endsection

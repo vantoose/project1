@@ -1,11 +1,32 @@
 <template>
   <div :id="id">
     <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
+      <template v-if="room">
+      <div class="card-header">{{ room.name }}</div>
+      </template>
+      <template v-if="!room">
+        <div class="list-group list-group-flush">
+          <template v-for="(value, key) in rooms" v-key="key">
+            <button type="button" class="list-group-item list-group-item-action" @click.prevent="selectRoom(key)">
+              <div>{{ value.name }}</div>
+              <div class="form-text text-muted small">{{ value.description }}</div>
+            </button>
+          </template>
+        </div>
+      </template>
+      <template v-if="room">
+        <div class="card-body">
+          <dl class="row">
+            <template v-for="(value, key) in room.messages" v-key="key">
+              <dt class="col-sm-3">{{ value.user_id }}</dt>
+              <dd class="col-sm-9">{{ value.message }}</dd>
+            </template>
+          </dl>
+        </div>
+      </template>
+      <template v-if="room">
+        <div class="card-footer" style="cursor: pointer;" @click="room = null">Back to rooms</div>
+      </template>
     </div>
   </div>
 </template>
@@ -14,18 +35,19 @@
 export default {
   name: 'vue-chat-room',
   props: {
-    active: { type: Boolean, default: false },
 		url: { type: String, default: "" }
   },
   data: function () {
     return {
       id: null,
-      loaded: null
+      rooms: null,
+      room: null,
     }
   },
   created: function () { this.id = this.$options.name + this._uid },
   mounted: function () { this.load() },
   methods: {
+    selectRoom: function (key) { this.room = this.rooms[key] },
 		load: function () {
 			this.waiting = true
 			let requestData = {
@@ -35,8 +57,7 @@ export default {
 			}
 			axios(requestData)
 			.then((response) => {
-        console.log(response.data)
-				this.loaded = response.data
+				this.rooms = response.data.rooms
 				this.waiting = false
 			}).catch((error) => {
 				this.error = error.response

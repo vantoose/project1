@@ -2208,10 +2208,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'vue-chat-room',
   props: {
-    active: {
-      type: Boolean,
-      "default": false
-    },
     url: {
       type: String,
       "default": ""
@@ -2220,7 +2216,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       id: null,
-      loaded: null
+      rooms: null,
+      room: null
     };
   },
   created: function created() {
@@ -2230,6 +2227,9 @@ __webpack_require__.r(__webpack_exports__);
     this.load();
   },
   methods: {
+    selectRoom: function selectRoom(key) {
+      this.room = this.rooms[key];
+    },
     load: function load() {
       var _this = this;
       this.waiting = true;
@@ -2241,8 +2241,7 @@ __webpack_require__.r(__webpack_exports__);
         url: this.url
       };
       axios(requestData).then(function (response) {
-        console.log(response.data);
-        _this.loaded = response.data;
+        _this.rooms = response.data.rooms;
         _this.waiting = false;
       })["catch"](function (error) {
         _this.error = error.response;
@@ -2465,26 +2464,50 @@ var render = function render() {
     attrs: {
       id: _vm.id
     }
-  }, [_vm._m(0)]);
-};
-var staticRenderFns = [function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "card"
   }, [_c("div", {
+    staticClass: "card"
+  }, [_vm.room ? [_c("div", {
+    staticClass: "card-header"
+  }, [_vm._v(_vm._s(_vm.room.name))])] : _vm._e(), _vm._v(" "), !_vm.room ? [_c("div", {
+    staticClass: "list-group list-group-flush"
+  }, [_vm._l(_vm.rooms, function (value, key) {
+    return [_c("button", {
+      staticClass: "list-group-item list-group-item-action",
+      attrs: {
+        type: "button"
+      },
+      on: {
+        click: function click($event) {
+          $event.preventDefault();
+          return _vm.selectRoom(key);
+        }
+      }
+    }, [_c("div", [_vm._v(_vm._s(value.name))]), _vm._v(" "), _c("div", {
+      staticClass: "form-text text-muted small"
+    }, [_vm._v(_vm._s(value.description))])])];
+  })], 2)] : _vm._e(), _vm._v(" "), _vm.room ? [_c("div", {
     staticClass: "card-body"
-  }, [_c("h5", {
-    staticClass: "card-title"
-  }, [_vm._v("Card title")]), _vm._v(" "), _c("p", {
-    staticClass: "card-text"
-  }, [_vm._v("Some quick example text to build on the card title and make up the bulk of the card's content.")]), _vm._v(" "), _c("a", {
-    staticClass: "btn btn-primary",
-    attrs: {
-      href: "#"
+  }, [_c("dl", {
+    staticClass: "row"
+  }, [_vm._l(_vm.room.messages, function (value, key) {
+    return [_c("dt", {
+      staticClass: "col-sm-3"
+    }, [_vm._v(_vm._s(value.user_id))]), _vm._v(" "), _c("dd", {
+      staticClass: "col-sm-9"
+    }, [_vm._v(_vm._s(value.message))])];
+  })], 2)])] : _vm._e(), _vm._v(" "), _vm.room ? [_c("div", {
+    staticClass: "card-footer",
+    staticStyle: {
+      cursor: "pointer"
+    },
+    on: {
+      click: function click($event) {
+        _vm.room = null;
+      }
     }
-  }, [_vm._v("Go somewhere")])])]);
-}];
+  }, [_vm._v("Back to rooms")])] : _vm._e()], 2)]);
+};
+var staticRenderFns = [];
 render._withStripped = true;
 
 
