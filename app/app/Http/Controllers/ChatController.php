@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreChatMessage;
 use App\Models\ChatRoom;
 use App\Models\ChatMessage;
 use Illuminate\Http\Request;
@@ -31,18 +32,36 @@ class ChatController extends Controller
 
     /**
      * @param  \Illuminate\Http\Request  $request
-     * @param  App\Models\ChatRoom  $room
+     * @param  App\Models\ChatRoom  $chatRoom
      * @return \Illuminate\Http\Response
      */
-    public function getNewMessages(Request $request, ChatRoom $room)
+    public function getChatMessages(Request $request, ChatRoom $chatRoom)
     {
         $lastId = $request->get('last_id', 0);
-        $messages = $room->messages()
+        $chatMessages = $chatRoom->messages()
             ->where('id', '>', $lastId)
             ->latest()
             ->limit(50)
             ->get();
         
-        return response()->json([ 'messages' => $messages ]);
+        return response()->json([ 'messages' => $chatMessages ]);
+    }
+
+    /**
+     * @param  \Illuminate\Http\StoreChatMessage  $request
+     * @param  App\Models\ChatRoom  $chatRoom
+     * @return \Illuminate\Http\Response
+     */
+    public function storeChatMessage(StoreChatMessage $request, ChatRoom $chatRoom)
+    {
+        $validated = $request->validated();
+
+        $chatMessage = new ChatMessage;
+        $chatMessage->message = $validated['message'];
+        $chatMessage->chat_room_id = $chatRoom->id;
+        $chatMessage->user_id = $request->user()->id;
+        $chatMessage->save();
+
+        return response()->json($chatMessage);
     }
 }

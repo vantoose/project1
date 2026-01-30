@@ -67,7 +67,8 @@ Route::middleware(['can:chat'])->group(function () {
 
   Route::prefix('chat')->name('chat.')->group(function () {
       Route::get('/', [ChatController::class, 'index'])->name('index');
-      Route::get('/room/{room}/messages', [ChatController::class, 'getNewMessages'])->name('messages');
+      Route::get('/room/{chatRoom}/messages', [ChatController::class, 'getChatMessages'])->name('messages');
+      Route::post('/room/{chatRoom}/message', [ChatController::class, 'storeChatMessage'])->name('message');
       
       // Route::get('/room/{room}', [ChatController::class, 'show'])->name('room');
       // Route::post('/room/{room}/message', [ChatController::class, 'sendMessage'])->name('send');

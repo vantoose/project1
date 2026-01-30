@@ -23,7 +23,7 @@ class ChatMessage extends Model
 
 	public function getDatetimeAttribute()
 	{
-		return DateHelper::isoFormat($this->updated_at, "DD.MM.YYYY hh:mm:ss");
+		return DateHelper::isoFormat($this->updated_at, "DD.MM.YYYY HH:mm:ss");
 	}
 
 	public function getUsernameAttribute()
