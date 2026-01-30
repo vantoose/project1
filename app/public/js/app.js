@@ -2205,7 +2205,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _OverlaySpinner_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OverlaySpinner.vue */ "./resources/js/components/OverlaySpinner.vue");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    OvarlaySpinner: _OverlaySpinner_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   name: 'vue-chat-room',
   props: {
     url: {
@@ -2216,22 +2221,55 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       id: null,
-      rooms: null,
-      room: null
+      messages: [],
+      rooms: [],
+      room: null,
+      waiting: false
     };
+  },
+  watch: {
+    room: {
+      deep: false,
+      immediate: false,
+      handler: function handler(val, oldVal) {
+        if (val) {
+          this.loadMessages(val.id);
+        } else {
+          this.messages = [];
+        }
+      }
+    }
   },
   created: function created() {
     this.id = this.$options.name + this._uid;
   },
   mounted: function mounted() {
-    this.load();
+    this.loadRooms();
   },
   methods: {
     selectRoom: function selectRoom(key) {
       this.room = this.rooms[key];
     },
-    load: function load() {
+    loadMessages: function loadMessages(room_id) {
       var _this = this;
+      this.waiting = true;
+      var requestData = {
+        headers: {
+          'Accept': 'application/json'
+        },
+        method: 'get',
+        url: this.url + '/room/' + room_id + '/messages'
+      };
+      axios(requestData).then(function (response) {
+        _this.messages = response.data.messages;
+        _this.waiting = false;
+      })["catch"](function (error) {
+        _this.error = error.response;
+        _this.waiting = false;
+      });
+    },
+    loadRooms: function loadRooms() {
+      var _this2 = this;
       this.waiting = true;
       var requestData = {
         headers: {
@@ -2241,11 +2279,11 @@ __webpack_require__.r(__webpack_exports__);
         url: this.url
       };
       axios(requestData).then(function (response) {
-        _this.rooms = response.data.rooms;
-        _this.waiting = false;
+        _this2.rooms = response.data.rooms;
+        _this2.waiting = false;
       })["catch"](function (error) {
-        _this.error = error.response;
-        _this.waiting = false;
+        _this2.error = error.response;
+        _this2.waiting = false;
       });
     }
   }
@@ -2464,11 +2502,52 @@ var render = function render() {
     attrs: {
       id: _vm.id
     }
-  }, [_c("div", {
+  }, [_c("vue-overlay-spinner", {
+    attrs: {
+      active: _vm.waiting
+    }
+  }), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.waiting,
+      expression: "!waiting"
+    }],
     staticClass: "card"
   }, [_vm.room ? [_c("div", {
     staticClass: "card-header"
-  }, [_vm._v(_vm._s(_vm.room.name))])] : _vm._e(), _vm._v(" "), !_vm.room ? [_c("div", {
+  }, [_c("span", {
+    staticClass: "mr-2",
+    staticStyle: {
+      cursor: "pointer"
+    },
+    attrs: {
+      title: "Back to rooms"
+    },
+    on: {
+      click: function click($event) {
+        _vm.room = null;
+      }
+    }
+  }, [_c("i", {
+    staticClass: "fa-solid fa-chevron-left"
+  })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.room.name))]), _vm._v(" "), _c("span", {
+    staticClass: "text-muted ml-1"
+  }, [_vm._v(_vm._s(_vm.room.description))])])] : _vm._e(), _vm._v(" "), _vm.room && _vm.messages ? [_c("div", {
+    staticClass: "card-body"
+  }, [_c("dl", {
+    staticClass: "row mb-0"
+  }, [_vm._l(_vm.messages, function (value, key) {
+    return [_c("dt", {
+      staticClass: "col-sm-2 text-sm-right"
+    }, [_vm._v(_vm._s(value.username))]), _vm._v(" "), _c("dd", {
+      staticClass: "col-sm-8"
+    }, [_vm._v(_vm._s(value.message))]), _vm._v(" "), _c("dd", {
+      staticClass: "col-sm-2"
+    }, [_c("span", {
+      staticClass: "form-text text-muted small"
+    }, [_vm._v(_vm._s(value.datetime))])])];
+  })], 2)])] : [_c("div", {
     staticClass: "list-group list-group-flush"
   }, [_vm._l(_vm.rooms, function (value, key) {
     return [_c("button", {
@@ -2483,29 +2562,11 @@ var render = function render() {
         }
       }
     }, [_c("div", [_vm._v(_vm._s(value.name))]), _vm._v(" "), _c("div", {
-      staticClass: "form-text text-muted small"
+      staticClass: "text-muted small"
     }, [_vm._v(_vm._s(value.description))])])];
-  })], 2)] : _vm._e(), _vm._v(" "), _vm.room ? [_c("div", {
-    staticClass: "card-body"
-  }, [_c("dl", {
-    staticClass: "row"
-  }, [_vm._l(_vm.room.messages, function (value, key) {
-    return [_c("dt", {
-      staticClass: "col-sm-3"
-    }, [_vm._v(_vm._s(value.user_id))]), _vm._v(" "), _c("dd", {
-      staticClass: "col-sm-9"
-    }, [_vm._v(_vm._s(value.message))])];
-  })], 2)])] : _vm._e(), _vm._v(" "), _vm.room ? [_c("div", {
-    staticClass: "card-footer",
-    staticStyle: {
-      cursor: "pointer"
-    },
-    on: {
-      click: function click($event) {
-        _vm.room = null;
-      }
-    }
-  }, [_vm._v("Back to rooms")])] : _vm._e()], 2)]);
+  })], 2)], _vm._v(" "), _vm.room ? [_c("div", {
+    staticClass: "card-footer"
+  }, [_vm._v("...")])] : _vm._e()], 2)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

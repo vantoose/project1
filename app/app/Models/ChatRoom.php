@@ -9,15 +9,18 @@ class ChatRoom extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description'];
-
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'chat_room_user');
-    }
+    protected $fillable = [
+        'name',
+        'description',
+    ];
 
     public function messages()
     {
         return $this->hasMany(ChatMessage::class)->latest();
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 }
