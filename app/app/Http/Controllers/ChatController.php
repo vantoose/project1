@@ -64,4 +64,16 @@ class ChatController extends Controller
 
         return response()->json($chatMessage);
     }
+
+    // public function joinRoom(ChatRoom $room, User $user)
+    // {
+    //     if (!$room->users->contains($user)) {
+    //         $room->users()->attach($user);
+    //     }
+    // }
+
+    // public function leaveRoom(ChatRoom $room, User $user)
+    // {
+    //     $room->users()->detach($user);
+    // }
 }

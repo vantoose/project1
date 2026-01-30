@@ -21,13 +21,13 @@
                 </template>
               </dl>
             </template>
-            <button type="button" class="btn btn-link btn-block mb-2" @click.prevent="loadMessages(room.id)">
-              <i class="fa-solid fa-arrows-rotate"></i>
+            <button type="button" class="btn btn-link btn-block text-decoration-none mb-2" @click.prevent="loadMessages(room.id)">
+              <i class="fa-solid fa-arrows-rotate" :class="loading.messages ? 'fa-spin' : '' "></i>
               <span>Refresh</span>
             </button>
             <form>
               <div class="form-group">
-                <textarea v-model="message" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea v-model="message" class="form-control" rows="3"></textarea>
               </div>
               <button type="button" class="btn btn-primary" @click.prevent="sendMessage(room.id)">Submit</button>
             </form>
@@ -67,6 +67,10 @@ export default {
       message: '',
       rooms: [],
       room: null,
+      loading: {
+        messages: false,
+        rooms: false
+      },
       waiting: false
     }
   },
@@ -108,7 +112,7 @@ export default {
 			})
 		},
 		loadMessages: function (room_id) {
-			this.waiting = true
+			this.loading.messages = true
 			let requestData = {
 				headers: { 'Accept': 'application/json' },
 				method: 'get',
@@ -117,10 +121,10 @@ export default {
 			axios(requestData)
 			.then((response) => {
 				this.messages = response.data.messages
-				this.waiting = false
+				this.loading.messages = false
 			}).catch((error) => {
 				this.error = error.response
-				this.waiting = false
+				this.loading.messages = false
 			})
 		},
 		loadRooms: function () {

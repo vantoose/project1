@@ -2225,6 +2225,10 @@ __webpack_require__.r(__webpack_exports__);
       message: '',
       rooms: [],
       room: null,
+      loading: {
+        messages: false,
+        rooms: false
+      },
       waiting: false
     };
   },
@@ -2275,7 +2279,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     loadMessages: function loadMessages(room_id) {
       var _this2 = this;
-      this.waiting = true;
+      this.loading.messages = true;
       var requestData = {
         headers: {
           'Accept': 'application/json'
@@ -2285,10 +2289,10 @@ __webpack_require__.r(__webpack_exports__);
       };
       axios(requestData).then(function (response) {
         _this2.messages = response.data.messages;
-        _this2.waiting = false;
+        _this2.loading.messages = false;
       })["catch"](function (error) {
         _this2.error = error.response;
-        _this2.waiting = false;
+        _this2.loading.messages = false;
       });
     },
     loadRooms: function loadRooms() {
@@ -2570,7 +2574,7 @@ var render = function render() {
       staticClass: "form-text text-muted small"
     }, [_vm._v(_vm._s(value.datetime))])])];
   })], 2)] : _vm._e(), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-link btn-block mb-2",
+    staticClass: "btn btn-link btn-block text-decoration-none mb-2",
     attrs: {
       type: "button"
     },
@@ -2581,7 +2585,8 @@ var render = function render() {
       }
     }
   }, [_c("i", {
-    staticClass: "fa-solid fa-arrows-rotate"
+    staticClass: "fa-solid fa-arrows-rotate",
+    "class": _vm.loading.messages ? "fa-spin" : ""
   }), _vm._v(" "), _c("span", [_vm._v("Refresh")])]), _vm._v(" "), _c("form", [_c("div", {
     staticClass: "form-group"
   }, [_c("textarea", {
@@ -2593,7 +2598,6 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      id: "exampleFormControlTextarea1",
       rows: "3"
     },
     domProps: {
