@@ -16,25 +16,27 @@ class ChatSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        // Создаем тестовых пользователей
-        $users = User::all();
-        
+    {        
         // Создаем комнаты
         $generalRoom = ChatRoom::create([
             'name' => 'Общий чат',
-            'description' => 'Чат для общих обсуждений'
+            'description' => 'Чат для общих обсуждений',
+            'user_id' => 1,
         ]);
         
         $supportRoom = ChatRoom::create([
             'name' => 'Техподдержка',
-            'description' => 'Вопросы по техническим проблемам'
+            'description' => 'Вопросы по техническим проблемам',
+            'user_id' => 1,
         ]);
         
         $offtopicRoom = ChatRoom::create([
             'name' => 'Оффтопик',
-            'description' => 'Обсуждения не по теме'
+            'description' => 'Обсуждения не по теме',
+            'user_id' => 1,
         ]);
+
+        $users = User::all();
         
         // Присоединяем всех пользователей к комнатам
         $rooms = ChatRoom::all();
@@ -44,9 +46,9 @@ class ChatSeeder extends Seeder
         
         // Создаем несколько тестовых сообщений
         foreach ($rooms as $room) {
-            foreach ($users->take(3) as $user) {
+            foreach ($users as $user) {
                 ChatMessage::create([
-                    'chat_room_id' => $room->id, // Изменено с room_id на chat_room_id
+                    'chat_room_id' => $room->id,
                     'user_id' => $user->id,
                     'message' => 'Тестовое сообщение от ' . $user->name . ' в комнате ' . $room->name
                 ]);

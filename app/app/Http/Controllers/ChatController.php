@@ -25,9 +25,9 @@ class ChatController extends Controller
      */
     public function index(Request $request)
     {
-        $rooms = $request->user()->chatRooms;
-        if ($request->wantsJson()) return response()->json([ 'rooms' => $rooms ]);
-        return view('chat.index');
+        $chatRooms = $request->user()->chatRooms;
+        //if ($request->wantsJson()) return response()->json([ 'rooms' => $chatRooms ]);
+        return view('chat.index')->withChatRooms($chatRooms);
     }
 
     /**
@@ -35,7 +35,18 @@ class ChatController extends Controller
      * @param  App\Models\ChatRoom  $chatRoom
      * @return \Illuminate\Http\Response
      */
-    public function getChatMessages(Request $request, ChatRoom $chatRoom)
+    public function show(Request $request, ChatRoom $chatRoom)
+    {
+        if ($request->wantsJson()) return response()->json([ 'chatRoom' => $chatRoom->load(['messages', 'users']) ]);
+        return view('chat.room.show')->withChatRoom($chatRoom->load(['messages', 'users']));
+    }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Models\ChatRoom  $chatRoom
+     * @return \Illuminate\Http\Response
+     */
+    public function load(Request $request, ChatRoom $chatRoom)
     {
         $lastId = $request->get('last_id', 0);
         $chatMessages = $chatRoom->messages()

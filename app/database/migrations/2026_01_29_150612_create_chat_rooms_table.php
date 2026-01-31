@@ -16,9 +16,15 @@ return new class extends Migration
         Schema::create('chat_rooms', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+			$table->softDeletes();
             
             $table->string('name');
             $table->text('description')->nullable();
+
+			$table->json('options')->nullable();
+
+			$table->foreignId('user_id')->constrained();
         });
     }
 

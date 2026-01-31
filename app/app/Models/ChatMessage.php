@@ -3,27 +3,42 @@
 namespace App\Models;
 
 use App\Helpers\DateHelper;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ChatMessage extends Model
 {
-    use HasFactory;
+	use SoftDeletes;
 
     protected $fillable = [
         'message',
         'chat_room_id',
         'user_id',
     ];
+    
+	/**
+	 * The attributes that should be cast.
+	 *
+	 * @var array
+	 */
+	protected $casts = [
+		'options' => 'array',
+	];
 
 	protected $appends = [
-        'datetime',
+        'date',
+        'time',
 		'username',
 	];
 
-	public function getDatetimeAttribute()
+	public function getDateAttribute()
 	{
-		return DateHelper::isoFormat($this->updated_at, "DD.MM.YYYY HH:mm:ss");
+		return DateHelper::isoFormat($this->created_at, "DD.MM.YYYY");
+	}
+
+	public function getTimeAttribute()
+	{
+		return DateHelper::isoFormat($this->created_at, "HH:mm:ss");
 	}
 
 	public function getUsernameAttribute()

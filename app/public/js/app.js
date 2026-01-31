@@ -2213,7 +2213,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   name: 'vue-chat-room',
   props: {
-    url: {
+    _room: {
+      type: Object,
+      "default": function _default() {
+        return {};
+      }
+    },
+    _loadUrl: {
+      type: String,
+      "default": ""
+    },
+    _sendUrl: {
       type: String,
       "default": ""
     }
@@ -2223,39 +2233,18 @@ __webpack_require__.r(__webpack_exports__);
       id: null,
       messages: [],
       message: '',
-      rooms: [],
-      room: null,
-      loading: {
-        messages: false,
-        rooms: false
-      },
+      loading: false,
       waiting: false
     };
-  },
-  watch: {
-    room: {
-      deep: false,
-      immediate: false,
-      handler: function handler(val, oldVal) {
-        if (val) {
-          this.loadMessages(val.id);
-        } else {
-          this.messages = [];
-        }
-      }
-    }
   },
   created: function created() {
     this.id = this.$options.name + this._uid;
   },
   mounted: function mounted() {
-    this.loadRooms();
+    this.messages = this._room.messages;
   },
   methods: {
-    selectRoom: function selectRoom(key) {
-      this.room = this.rooms[key];
-    },
-    sendMessage: function sendMessage(room_id) {
+    send: function send(room_id) {
       var _this = this;
       this.waiting = true;
       var requestData = {
@@ -2263,13 +2252,13 @@ __webpack_require__.r(__webpack_exports__);
           'Accept': 'application/json'
         },
         method: 'post',
-        url: this.url + '/room/' + room_id + '/message',
+        url: this._sendUrl,
         data: {
           message: this.message
         }
       };
       axios(requestData).then(function (response) {
-        _this.loadMessages(room_id);
+        _this.load(room_id);
         _this.message = '';
         _this.waiting = false;
       })["catch"](function (error) {
@@ -2277,40 +2266,22 @@ __webpack_require__.r(__webpack_exports__);
         _this.waiting = false;
       });
     },
-    loadMessages: function loadMessages(room_id) {
+    load: function load(room_id) {
       var _this2 = this;
-      this.loading.messages = true;
+      this.loading = true;
       var requestData = {
         headers: {
           'Accept': 'application/json'
         },
         method: 'get',
-        url: this.url + '/room/' + room_id + '/messages'
+        url: this._loadUrl
       };
       axios(requestData).then(function (response) {
         _this2.messages = response.data.messages;
-        _this2.loading.messages = false;
+        _this2.loading = false;
       })["catch"](function (error) {
         _this2.error = error.response;
-        _this2.loading.messages = false;
-      });
-    },
-    loadRooms: function loadRooms() {
-      var _this3 = this;
-      this.waiting = true;
-      var requestData = {
-        headers: {
-          'Accept': 'application/json'
-        },
-        method: 'get',
-        url: this.url
-      };
-      axios(requestData).then(function (response) {
-        _this3.rooms = response.data.rooms;
-        _this3.waiting = false;
-      })["catch"](function (error) {
-        _this3.error = error.response;
-        _this3.waiting = false;
+        _this2.loading = false;
       });
     }
   }
@@ -2534,32 +2505,6 @@ var render = function render() {
       active: _vm.waiting
     }
   }), _vm._v(" "), _c("div", {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: !_vm.waiting,
-      expression: "!waiting"
-    }],
-    staticClass: "card"
-  }, [_vm.room ? [_c("div", {
-    staticClass: "card-header"
-  }, [_c("span", {
-    staticClass: "mr-2",
-    staticStyle: {
-      cursor: "pointer"
-    },
-    attrs: {
-      title: "Back to rooms"
-    },
-    on: {
-      click: function click($event) {
-        $event.preventDefault();
-        _vm.room = null;
-      }
-    }
-  }, [_c("i", {
-    staticClass: "fa-solid fa-chevron-left"
-  })]), _vm._v(" "), _c("span", [_vm._v(_vm._s(_vm.room.name))])])] : _vm._e(), _vm._v(" "), _vm.room ? [_c("div", {
     staticClass: "card-body"
   }, [_vm.messages ? [_c("dl", {
     staticClass: "row"
@@ -2572,7 +2517,7 @@ var render = function render() {
       staticClass: "col-sm-2"
     }, [_c("span", {
       staticClass: "form-text text-muted small"
-    }, [_vm._v(_vm._s(value.datetime))])])];
+    }, [_vm._v(_vm._s(value.time))])])];
   })], 2)] : _vm._e(), _vm._v(" "), _c("button", {
     staticClass: "btn btn-link btn-block text-decoration-none mb-2",
     attrs: {
@@ -2581,12 +2526,12 @@ var render = function render() {
     on: {
       click: function click($event) {
         $event.preventDefault();
-        return _vm.loadMessages(_vm.room.id);
+        return _vm.load(_vm._room.id);
       }
     }
   }, [_c("i", {
     staticClass: "fa-solid fa-arrows-rotate",
-    "class": _vm.loading.messages ? "fa-spin" : ""
+    "class": _vm.loading ? "fa-spin" : ""
   }), _vm._v(" "), _c("span", [_vm._v("Refresh")])]), _vm._v(" "), _c("form", [_c("div", {
     staticClass: "form-group"
   }, [_c("textarea", {
@@ -2617,31 +2562,10 @@ var render = function render() {
     on: {
       click: function click($event) {
         $event.preventDefault();
-        return _vm.sendMessage(_vm.room.id);
+        return _vm.send(_vm._room.id);
       }
     }
-  }, [_vm._v("Submit")])])], 2)] : [_c("div", {
-    staticClass: "list-group list-group-flush"
-  }, [_vm._l(_vm.rooms, function (value, key) {
-    return [_c("button", {
-      staticClass: "list-group-item list-group-item-action",
-      attrs: {
-        type: "button"
-      },
-      on: {
-        click: function click($event) {
-          $event.preventDefault();
-          return _vm.selectRoom(key);
-        }
-      }
-    }, [_c("div", [_vm._v(_vm._s(value.name))]), _vm._v(" "), _c("div", {
-      staticClass: "text-muted small"
-    }, [_vm._v(_vm._s(value.description))])])];
-  })], 2)], _vm._v(" "), _vm.room ? [_c("div", {
-    staticClass: "card-footer"
-  }, [_c("span", {
-    staticClass: "text-muted"
-  }, [_vm._v(_vm._s(_vm.room.description))])])] : _vm._e()], 2)], 1);
+  }, [_vm._v("Submit")])])], 2)], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;

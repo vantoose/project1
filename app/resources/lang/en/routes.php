@@ -12,6 +12,9 @@ return [
         'search' => 'Search',
       ],
     ],
+    'chat' => [
+      'index' => 'Chat',
+    ],
     'memos' => [
       'index' => 'Memos',
       'create' => 'Create',
@@ -34,9 +37,6 @@ return [
       'index' => 'Uploads',
       'destroy' => 'Delete',
       'download' => 'Download',
-    ],
-    'chat' => [
-      'index' => 'Chat',
     ],
     'admin' => [
       'index' => 'Admin',

@@ -9,6 +9,7 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 // Models
+use App\Models\ChatRoom;
 use App\Models\Post;
 use App\Models\User;
 
@@ -45,6 +46,12 @@ Breadcrumbs::for('hash', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('chat.index', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push(Lang::get('routes.web.chat.index'), route('chat.index'));
+});
+
+// Home > Chat > Show
+Breadcrumbs::for('chat.rooms.show', function (BreadcrumbTrail $trail, ChatRoom $chatRoom) {
+    $trail->parent('chat.index');
+    $trail->push($chatRoom->name, route('chat.rooms.show', $chatRoom));
 });
 
 // Home > Memos

@@ -17,9 +17,14 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
+			$table->softDeletes();
+
             $table->text('message');
-            $table->foreignId('chat_room_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
+			$table->json('options')->nullable();
+
+            $table->foreignId('chat_room_id')->constrained();
+            $table->foreignId('user_id')->constrained();
         });
     }
 
