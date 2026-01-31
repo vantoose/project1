@@ -25,7 +25,7 @@ class ChatRoom extends Model
 
     public function messages()
     {
-        return $this->hasMany(ChatMessage::class)->latest();
+        return $this->hasMany(ChatMessage::class);
     }
 
     public function users()

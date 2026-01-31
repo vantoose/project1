@@ -47,9 +47,7 @@ class ChatController extends Controller
      */
     public function load(Request $request, ChatRoom $chatRoom)
     {
-        $lastId = $request->get('last_id', 0);
         $chatMessages = $chatRoom->messages;
-        
         return response()->json([ 'messages' => $chatMessages ]);
     }
 
