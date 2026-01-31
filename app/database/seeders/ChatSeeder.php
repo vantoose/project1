@@ -47,7 +47,14 @@ class ChatSeeder extends Seeder
         // Создаем несколько тестовых сообщений
         foreach ($rooms as $room) {
             foreach ($users as $user) {
+                $created_at = now()
+                ->subHours(24)
+                ->addMinutes($user->id)
+                ->addSeconds($user->id);
+                
                 ChatMessage::create([
+                    'created_at' => $created_at,
+                    'updated_at' => $created_at,
                     'chat_room_id' => $room->id,
                     'user_id' => $user->id,
                     'message' => 'Тестовое сообщение от ' . $user->name . ' в комнате ' . $room->name

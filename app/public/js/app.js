@@ -2510,18 +2510,17 @@ var render = function render() {
     staticClass: "row"
   }, [_vm._l(_vm.messages, function (value, key) {
     return [_c("dt", {
-      staticClass: "col-sm-2 text-sm-right"
-    }, [_vm._v(_vm._s(value.username))]), _vm._v(" "), _c("dd", {
-      staticClass: "col-sm-8"
-    }, [_vm._v(_vm._s(value.message))]), _vm._v(" "), _c("dd", {
-      staticClass: "col-sm-2"
-    }, [_c("span", {
-      staticClass: "form-text text-muted small"
-    }, [_vm._v(_vm._s(value.time))])])];
+      staticClass: "col-sm-3 text-sm-right"
+    }, [_c("div", [_vm._v(_vm._s(value.username))]), _vm._v(" "), _c("div", {
+      staticClass: "text-muted small"
+    }, [_vm._v(_vm._s(value.time))])]), _vm._v(" "), _c("dd", {
+      staticClass: "col-sm-9"
+    }, [_vm._v(_vm._s(value.message))])];
   })], 2)] : _vm._e(), _vm._v(" "), _c("button", {
     staticClass: "btn btn-link btn-block text-decoration-none mb-2",
     attrs: {
-      type: "button"
+      type: "button",
+      disabled: _vm.loading || _vm.waiting
     },
     on: {
       click: function click($event) {
@@ -2543,7 +2542,8 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      rows: "3"
+      rows: "3",
+      readonly: _vm.waiting
     },
     domProps: {
       value: _vm.message
@@ -2557,7 +2557,8 @@ var render = function render() {
   })]), _vm._v(" "), _c("button", {
     staticClass: "btn btn-primary",
     attrs: {
-      type: "button"
+      type: "button",
+      disabled: !_vm.message || _vm.waiting
     },
     on: {
       click: function click($event) {

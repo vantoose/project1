@@ -6,23 +6,24 @@
       <template v-if="messages">
         <dl class="row">
           <template v-for="(value, key) in messages" v-key="key">
-            <dt class="col-sm-2 text-sm-right">{{ value.username }}</dt>
-            <dd class="col-sm-8">{{ value.message }}</dd>
-            <dd class="col-sm-2">
-              <span class="form-text text-muted small">{{ value.time }}</span>
+            <dt class="col-sm-3 text-sm-right">
+              <div>{{ value.username }}</div>
+              <div class="text-muted small">{{ value.time }}</div>
+            </dt>
+            <dd class="col-sm-9">{{ value.message }}</dd>
             </dd>
           </template>
         </dl>
       </template>
-      <button type="button" class="btn btn-link btn-block text-decoration-none mb-2" @click.prevent="load(_room.id)">
+      <button type="button" class="btn btn-link btn-block text-decoration-none mb-2" :disabled="loading || waiting" @click.prevent="load(_room.id)">
         <i class="fa-solid fa-arrows-rotate" :class="loading ? 'fa-spin' : '' "></i>
         <span>Refresh</span>
       </button>
       <form>
         <div class="form-group">
-          <textarea v-model="message" class="form-control" rows="3"></textarea>
+          <textarea v-model="message" class="form-control" rows="3" :readonly="waiting"></textarea>
         </div>
-        <button type="button" class="btn btn-primary" @click.prevent="send(_room.id)">Submit</button>
+        <button type="button" class="btn btn-primary" :disabled="!message || waiting" @click.prevent="send(_room.id)">Submit</button>
       </form>
     </div>
 
