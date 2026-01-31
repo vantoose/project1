@@ -48,7 +48,8 @@ class ChatSeeder extends Seeder
         foreach ($rooms as $room) {
             foreach ($users as $user) {
                 $created_at = now()
-                ->subHours(24)
+                ->subYears(1)
+                ->addHours(6)
                 ->addMinutes($user->id)
                 ->addSeconds($user->id);
                 
