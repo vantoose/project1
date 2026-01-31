@@ -4,16 +4,18 @@
 
     <div class="card-body">
       <template v-if="messages">
-        <dl class="row">
-          <template v-for="(value, key) in messages" v-key="key">
-            <dt class="col-sm-3 text-sm-right">
-              <div>{{ value.username }}</div>
-              <div class="text-muted small">{{ value.time }}</div>
-            </dt>
-            <dd class="col-sm-9">{{ value.message }}</dd>
-            </dd>
-          </template>
-        </dl>
+        <template v-for="(value, key) in chat" v-key="key">
+          <div class="text-center text-muted small">{{ key }}</div>
+          <dl class="row">
+            <template v-for="(v, k) in value" v-key="k">
+              <dt class="col-sm-3 text-sm-right">
+                <div>{{ v.username }}</div>
+                <div class="text-muted small">{{ v.time }}</div>
+              </dt>
+              <dd class="col-sm-9">{{ v.message }}</dd>
+            </template>
+          </dl>
+        </template>
       </template>
       <button type="button" class="btn btn-link btn-block text-decoration-none mb-2" :disabled="loading || waiting" @click.prevent="load(_room.id)">
         <i class="fa-solid fa-arrows-rotate" :class="loading ? 'fa-spin' : '' "></i>
@@ -49,6 +51,11 @@ export default {
       waiting: false
     }
   },
+	computed: {
+		chat: function () {
+			return _.groupBy(this.messages, 'date')
+		},
+  },
   created: function () { this.id = this.$options.name + this._uid },
   mounted: function () { this.messages = this._room.messages },
   methods: {
@@ -81,6 +88,7 @@ export default {
 			}
 			axios(requestData)
 			.then((response) => {
+        console.log(response.data.messages)
 				this.messages = response.data.messages
 				this.loading = false
 			}).catch((error) => {

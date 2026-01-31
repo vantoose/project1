@@ -2237,6 +2237,11 @@ __webpack_require__.r(__webpack_exports__);
       waiting: false
     };
   },
+  computed: {
+    chat: function chat() {
+      return _.groupBy(this.messages, 'date');
+    }
+  },
   created: function created() {
     this.id = this.$options.name + this._uid;
   },
@@ -2277,6 +2282,7 @@ __webpack_require__.r(__webpack_exports__);
         url: this._loadUrl
       };
       axios(requestData).then(function (response) {
+        console.log(response.data.messages);
         _this2.messages = response.data.messages;
         _this2.loading = false;
       })["catch"](function (error) {
@@ -2506,17 +2512,21 @@ var render = function render() {
     }
   }), _vm._v(" "), _c("div", {
     staticClass: "card-body"
-  }, [_vm.messages ? [_c("dl", {
-    staticClass: "row"
-  }, [_vm._l(_vm.messages, function (value, key) {
-    return [_c("dt", {
-      staticClass: "col-sm-3 text-sm-right"
-    }, [_c("div", [_vm._v(_vm._s(value.username))]), _vm._v(" "), _c("div", {
-      staticClass: "text-muted small"
-    }, [_vm._v(_vm._s(value.time))])]), _vm._v(" "), _c("dd", {
-      staticClass: "col-sm-9"
-    }, [_vm._v(_vm._s(value.message))])];
-  })], 2)] : _vm._e(), _vm._v(" "), _c("button", {
+  }, [_vm.messages ? [_vm._l(_vm.chat, function (value, key) {
+    return [_c("div", {
+      staticClass: "text-center text-muted small"
+    }, [_vm._v(_vm._s(key))]), _vm._v(" "), _c("dl", {
+      staticClass: "row"
+    }, [_vm._l(value, function (v, k) {
+      return [_c("dt", {
+        staticClass: "col-sm-3 text-sm-right"
+      }, [_c("div", [_vm._v(_vm._s(v.username))]), _vm._v(" "), _c("div", {
+        staticClass: "text-muted small"
+      }, [_vm._v(_vm._s(v.time))])]), _vm._v(" "), _c("dd", {
+        staticClass: "col-sm-9"
+      }, [_vm._v(_vm._s(v.message))])];
+    })], 2)];
+  })] : _vm._e(), _vm._v(" "), _c("button", {
     staticClass: "btn btn-link btn-block text-decoration-none mb-2",
     attrs: {
       type: "button",
