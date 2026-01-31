@@ -26,7 +26,6 @@ class ChatController extends Controller
     public function index(Request $request)
     {
         $chatRooms = $request->user()->chatRooms;
-        //if ($request->wantsJson()) return response()->json([ 'rooms' => $chatRooms ]);
         return view('chat.index')->withChatRooms($chatRooms);
     }
 
@@ -49,11 +48,7 @@ class ChatController extends Controller
     public function load(Request $request, ChatRoom $chatRoom)
     {
         $lastId = $request->get('last_id', 0);
-        $chatMessages = $chatRoom->messages()
-            ->where('id', '>', $lastId)
-            ->latest()
-            ->limit(50)
-            ->get();
+        $chatMessages = $chatRoom->messages;
         
         return response()->json([ 'messages' => $chatMessages ]);
     }
@@ -75,16 +70,4 @@ class ChatController extends Controller
 
         return response()->json($chatMessage);
     }
-
-    // public function joinRoom(ChatRoom $room, User $user)
-    // {
-    //     if (!$room->users->contains($user)) {
-    //         $room->users()->attach($user);
-    //     }
-    // }
-
-    // public function leaveRoom(ChatRoom $room, User $user)
-    // {
-    //     $room->users()->detach($user);
-    // }
 }
