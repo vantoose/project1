@@ -44,14 +44,5 @@ class RolesSeeder extends Seeder
 
 		User::find(1)->syncRoles([$role_admin, $role_user])
         ->syncPermissions([$permission_posts, $permission_uploads]);
-
-        if (App::environment('local')) {
-
-            User::find(2)->syncRoles([$role_user]);
-            User::find(3)->syncRoles([$role_user])->syncPermissions([$permission_posts]);
-            User::find(4)->syncRoles([$role_user])->syncPermissions([$permission_uploads]);
-            User::find(5)->syncRoles([$role_user])->syncPermissions([$permission_posts, $permission_uploads]);
-
-        }
     }
 }

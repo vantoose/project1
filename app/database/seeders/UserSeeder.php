@@ -18,21 +18,13 @@ class UserSeeder extends Seeder
    */
   public function run()
   {
-    $password = Hash::make(Str::random(10));
-    $api_token = Hash::make(Str::random(10));
-    
-    if (App::environment('local')) {
-      $password = Hash::make('password');
-      $api_token = Hash::make('password');
-    }
-
     DB::table('users')->insert([
-      'name' => 'Ivan',
+      'name' => 'Ivan Shipilov',
       'email' => 'www@ishipilov.ru',
       'email_verified_at' => now(),
-      'password' => $password,
+      'password' => App::environment('local') ? Hash::make('password') : Hash::make(Str::random(10)),
       'remember_token' => Str::random(10),
-      'api_token' => $api_token,
+      'api_token' => App::environment('local') ? Hash::make('password') : Hash::make(Str::random(10)),
       'created_at' => now(),
       'updated_at' => now(),
     ]);

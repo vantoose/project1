@@ -90,6 +90,18 @@ Breadcrumbs::for('uploads.index', function (BreadcrumbTrail $trail) {
     $trail->push(Lang::get('routes.web.uploads.index'), route('uploads.index'));
 });
 
+// Home > Users
+// Breadcrumbs::for('users.index', function (BreadcrumbTrail $trail) {
+//     $trail->parent('home');
+//     $trail->push(Lang::get('routes.web.users.index'), route('users.index'));
+// });
+
+// Home > Users > Show
+Breadcrumbs::for('users.show', function (BreadcrumbTrail $trail, User $user) {
+    $trail->parent('home');
+    $trail->push($user->name, route('users.show', $user));
+});
+
 // Home > Admin > Users
 Breadcrumbs::for('admin', function (BreadcrumbTrail $trail) {
     $trail->parent('home');

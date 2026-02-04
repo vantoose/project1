@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemoController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,8 @@ Route::get('home', [HomeController::class, 'index'])->name('home');
 
 Route::get('5bukv', [HomeController::class, 'bukv5'])->name('5bukv');
 Route::get('hash', [HomeController::class, 'hash'])->name('hash');
+
+Route::resource('users', UserController::class)->only('show');
 
 /**
  * Auth

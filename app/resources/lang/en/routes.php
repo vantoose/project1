@@ -38,6 +38,9 @@ return [
       'destroy' => 'Delete',
       'download' => 'Download',
     ],
+    'users' => [
+      'index' => 'Users',
+    ],
     'admin' => [
       'index' => 'Admin',
       'users' => [

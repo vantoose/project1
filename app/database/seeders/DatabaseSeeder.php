@@ -18,15 +18,13 @@ class DatabaseSeeder extends Seeder
   public function run()
   {
     $this->call(UserSeeder::class);
+    $this->call(RolesSeeder::class);
 
     if (App::environment('local')) {
       User::factory(9)->create();
       Memo::factory(99)->create();
       Post::factory(99)->create();
+      $this->call(ChatSeeder::class);
     }
-
-    $this->call(RolesSeeder::class);
-    
-    $this->call(ChatSeeder::class);
   }
 }

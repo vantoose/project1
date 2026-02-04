@@ -18,7 +18,7 @@ class PostFactory extends Factory
   public function definition()
   {
     $published_at = random_int(0, 1) ? now() : null;
-    $user_id = User::all()->except(1)->random()->id;
+    $user_id = User::all()->random()->id;
     return [
       'published_at' => $published_at,
       'title' => $this->faker->text($maxNbChars = 100),
