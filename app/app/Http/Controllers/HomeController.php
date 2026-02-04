@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public function welcome(Request $request)
+    {
+        try {
+            $location = \Stevebauman\Location\Facades\Location::get();
+        } catch (\Exception $e) {
+            //
+        }
+        return view('welcome')->withLocation($location);
+    }
+
     /**
      * Show the application dashboard.
      *

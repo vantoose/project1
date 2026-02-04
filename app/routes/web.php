@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 	return redirect()->route('home')->withStatus('Welcome.');
-    return view('welcome');
+  return view('welcome');
 });
 
 Auth::routes(['register' => env('AUTH_REGISTER', false), 'verify' => env('AUTH_VERIFY', false)]);
