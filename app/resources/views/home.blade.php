@@ -2,10 +2,6 @@
 
 @section('content')
 <div class="container">
-    <div class="list-group mb-3">
-        <a href="{{ route('5bukv') }}" class="list-group-item list-group-item-action">{{ __('routes.web.5bukv') }}</a>
-    </div>
-
     @can('memos')
         <form method="POST" action="{{ route('memos.store') }}" class="mb-3">
             @csrf
@@ -39,8 +35,5 @@
             <a href="{{ route('public.posts.index') }}" class="list-group-item list-group-item-action" style="overflow-x: auto;">...</a>
         </div>
     </div>
-
-
-
 </div>
 @endsection
