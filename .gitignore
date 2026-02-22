@@ -1,8 +1,12 @@
 config/laravel/.env
+config/laravel/.env.prod
+config/nginx/conf.d/app.conf
 config/nginx/conf.d/app.conf.prod
 logs/laravel/*
 logs/nginx/*
 scripts/*
 temp/*
+.env
 .env.prod
+docker-compose.yml
 docker-compose.yml.prod
