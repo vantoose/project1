@@ -1,7 +1,9 @@
+certs/dhparam/*
 config/laravel/.env
 config/laravel/.env.prod
 config/nginx/conf.d/app.conf
 config/nginx/conf.d/app.conf.prod
+logs/certbot/*
 logs/cron/*
 logs/laravel/*
 logs/nginx/*
