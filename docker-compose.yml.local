@@ -14,6 +14,7 @@ services:
       - ./config/laravel/.env:/var/www/.env
       - ./config/php/local.ini:/usr/local/etc/php/conf.d/local.ini
       - ./logs/laravel:/var/www/storage/logs
+      - ./logs/cron/cron.log:/var/log/cron.log
     networks:
       - app-network
     healthcheck:
