@@ -17,7 +17,7 @@ class MemoController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-		$this->authorizeResource(Memo::class, 'mome');
+		$this->authorizeResource(Memo::class, 'memo');
     }
 
     /**
@@ -28,10 +28,13 @@ class MemoController extends Controller
      */
     public function index(Request $request)
     {
-        $memos = $request->user()->memos()
+		$user = $request->user();
+		$memos = $user->memos()->ordered()->get();
+		$trashed = $user->memos()->onlyTrashed();
+		$memosWithTrashed = $user->memos()->union($trashed)
         ->ordered()->search($request->input('q'))
-        ->paginate(50)->withQueryString();
-        return view('memos.index')->withMemos($memos);
+        ->paginate(50);
+		return view('memos.index')->withMemos($memosWithTrashed);
     }
 
     /**
@@ -107,6 +110,12 @@ class MemoController extends Controller
      */
     public function destroy(Memo $memo)
     {
-        //
+        try {
+            $memo->delete();
+            return redirect()->route('memos.index')->withStatus("Success.");
+        } catch (\Exception $e) {
+            $errors = $e->getMessage();
+            return back()->withErrors($errors);
+        }
     }
 }

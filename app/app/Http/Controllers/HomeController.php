@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Memo;
 use App\Models\Post;
 use App\Models\Upload;
 use Illuminate\Http\Request;
@@ -21,11 +22,12 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::published()->ordered()->limit(5)->get();
+        $posts = Post::published()->ordered()->limit(10)->get();
         return view('home')->withPosts($posts);
     }
 
