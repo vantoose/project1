@@ -37,11 +37,13 @@
         @can('view', $memo)
           <div class="list-group-item d-flex" style="overflow-x: auto;">
 
-            @if ($memo->is_valid_url)
-              <a href="{{ $memo->content }}" target="_blank" class="text-decoration-none">{{ $memo->content }}</a>
-            @else
-              <div>{{ $memo->content }}</div>
-            @endif
+            <div class="mr-3">
+              @if ($memo->is_valid_url)
+                <a href="{{ $memo->content }}" target="_blank" class="text-decoration-none">{{ $memo->content }}</a>
+              @else
+                <span>{!! nl2br(e($memo->content)) !!}</span>
+              @endif
+            </div>
 
             @can('delete', $memo)
               <div class="ml-auto">
