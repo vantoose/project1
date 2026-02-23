@@ -35,11 +35,32 @@
     <div class="list-group mb-3">
       @foreach ($memos as $memo)
         @can('view', $memo)
-          @if ($memo->is_valid_url)
-            <a href="{{ $memo->content }}" target="_blank" class="list-group-item list-group-item-action text-primary" style="overflow-x: auto;">{{ $memo->content }}</a>
-          @else
-            <div class="list-group-item" style="overflow-x: auto;">{{ $memo->content }}</div>
-          @endif
+          <div class="list-group-item d-flex" style="overflow-x: auto;">
+
+            @if ($memo->is_valid_url)
+              <a href="{{ $memo->content }}" target="_blank" class="text-decoration-none">{{ $memo->content }}</a>
+            @else
+              <div>{{ $memo->content }}</div>
+            @endif
+
+            @can('delete', $memo)
+              <div class="ml-auto">
+                @if (empty($memo->deleted_at))
+                  <a href="{{ route('memos.destroy', $memo) }}" class="text-decoration-none text-danger"
+                  onclick="event.preventDefault(); let confirmed = confirm('Delete?'); if (confirmed) { document.getElementById('delete-memo-{{ $memo->id }}').submit(); }">
+                    {{ __('Delete') }}
+                  </a>
+                  <form id="delete-memo-{{ $memo->id }}" action="{{ route('memos.destroy', $memo) }}" method="POST" class="d-none">
+                    @method('DELETE')
+                    @csrf
+                  </form>
+                @else
+                  <span class="text-danger text-nowrap">{{ DateHelper::isoFormat($memo->deleted_at) }}</span>
+                @endif
+              </div>
+            @endcan
+
+          </div>
         @endcan
       @endforeach
     </div>
