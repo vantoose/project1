@@ -29,11 +29,9 @@ class MemoController extends Controller
     public function index(Request $request)
     {
 		$user = $request->user();
-		$memos = $user->memos()->ordered()->get();
-		$trashed = $user->memos()->onlyTrashed();
+		$trashed = $user->memos()->onlyTrashed()->search($request->input('q'));
 		$memosWithTrashed = $user->memos()->union($trashed)
-        ->ordered()->search($request->input('q'))
-        ->paginate(50);
+        ->search($request->input('q'))->ordered()->paginate(50);
 		return view('memos.index')->withMemos($memosWithTrashed);
     }
 
