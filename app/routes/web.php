@@ -88,7 +88,7 @@ Route::middleware(['role:admin'])->group(function () {
 
   Route::prefix('admin')->name('admin.')->group(function () {
     Route::prefix('users')->name('users.')->group(function () {
-      Route::get('{user}/login_as', [App\Http\Controllers\Admin\UserController::class, 'login_as'])->name('login_as');
+      Route::get('{user}/login_as', [App\Http\Controllers\Admin\UserController::class, 'loginAs'])->name('login.as');
     });
     Route::resource('users', App\Http\Controllers\Admin\UserController::class)->only(['index']);
   });

@@ -42,7 +42,7 @@
             </td>
             <td>
               @can('login as')
-                <a href="{{ route('admin.users.login_as', $user) }}" class="text-decoration-none">{{ __('Login as') }}</a>
+                <a href="{{ route('admin.users.login.as', $user) }}" class="text-decoration-none">{{ __('Login as') }}</a>
               @endcan
             </td>
           </tr>

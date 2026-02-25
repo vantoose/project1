@@ -102,9 +102,9 @@ class UserController extends Controller
 	 * @param  \App\Models\User  $user
 	 * @return \Illuminate\Http\Response
 	 */
-	public function login_as(User $user)
+	public function loginAs(User $user)
 	{
-		$this->authorize('login_as', $user);
+		$this->authorize('loginAs', $user);
 		Auth::loginUsingId($user->id);
 		return redirect()->route('home')->withStatus("Logged in as $user->name.");
 	}
