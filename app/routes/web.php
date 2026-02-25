@@ -69,12 +69,13 @@ Route::middleware(['can:uploads'])->group(function () {
 Route::middleware(['can:chat'])->group(function () {
 
   Route::prefix('chat')->name('chat.')->group(function () {
-      Route::prefix('rooms')->name('rooms.')->group(function () {
-        Route::get('{chatRoom}', [ChatController::class, 'show'])->name('show');
-        Route::get('{chatRoom}/load', [ChatController::class, 'load'])->name('load');
-        Route::post('{chatRoom}/send', [ChatController::class, 'storeChatMessage'])->name('send');
-      });
-      Route::get('/', [ChatController::class, 'index'])->name('index');
+    Route::prefix('rooms')->name('rooms.')->group(function () {
+      Route::get('{chatRoom}', [ChatController::class, 'show'])->name('show');
+      Route::get('{chatRoom}/load', [ChatController::class, 'load'])->name('load');
+      Route::post('{chatRoom}/send', [ChatController::class, 'storeChatMessage'])->name('send');
+    });
+    Route::get('/with_user/{user}', [ChatController::class, 'storeChatRoomWithUser'])->name('with.user');
+    Route::get('/', [ChatController::class, 'index'])->name('index');
   });
 
 });

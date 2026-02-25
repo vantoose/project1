@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\ChatMessage;
 use App\Models\ChatRoom;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -15,8 +16,7 @@ class ChatSeeder extends Seeder
      * @return void
      */
     public function run()
-    {        
-        // Создаем комнаты
+    {
         $generalRoom = ChatRoom::create([
             'name' => 'Общий чат',
             'description' => 'Чат для общих обсуждений',
@@ -31,10 +31,11 @@ class ChatSeeder extends Seeder
 
         $users = User::all();
         
-        // Присоединяем всех пользователей к комнатам
         $rooms = ChatRoom::all();
         foreach ($rooms as $room) {
             $room->users()->attach($users->pluck('id'));
         }
+
+        ChatMessage::factory(999)->create();
     }
 }

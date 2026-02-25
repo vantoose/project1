@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreChatMessage;
+use App\Http\Requests\StoreChatRoom;
 use App\Models\ChatRoom;
 use App\Models\ChatMessage;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ChatController extends Controller
@@ -68,4 +70,35 @@ class ChatController extends Controller
 
         return response()->json($chatMessage);
     }
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function storeChatRoomWithUser(Request $request, User $user)
+    {
+        $userIds = [$request->user()->id, $user->id];
+        if (count(array_unique($userIds)) < 2) return back()->withErrors("User count.");
+        sort($userIds);
+
+        // Пытаемся найти существующую комнату
+        $chatRoom = ChatRoom::whereHas('users', function ($query) use ($userIds) {
+            $query->whereIn('users.id', $userIds);
+        }, '=', count($userIds))
+        ->whereDoesntHave('users', function ($query) use ($userIds) {
+            $query->whereNotIn('users.id', $userIds);
+        })
+        ->first();
+
+        if ($chatRoom) return redirect()->route('chat.rooms.show', $chatRoom);
+ 
+        $chatRoom = new ChatRoom;
+        $chatRoom->name = "";
+        $chatRoom->user_id = $request->user()->id;
+        $chatRoom->save();
+        $chatRoom->users()->attach($userIds);
+        
+        return view('chat.room.show')->withChatRoom($chatRoom->load(['messages', 'users']));
+   }
 }

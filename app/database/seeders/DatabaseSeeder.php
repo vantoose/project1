@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\ChatMessage;
 use App\Models\Memo;
 use App\Models\Post;
 use App\Models\User;
@@ -19,14 +18,14 @@ class DatabaseSeeder extends Seeder
   public function run()
   {
     $this->call(UserSeeder::class);
+    if (App::environment('local')) User::factory(9)->create();
     $this->call(RolesSeeder::class);
 
     if (App::environment('local')) {
       User::factory(9)->create();
       Memo::factory(99)->create();
       Post::factory(99)->create();
-      $this->call(ChatSeeder::class);
-      ChatMessage::factory(999)->create();
+      //$this->call(ChatSeeder::class);
     }
   }
 }

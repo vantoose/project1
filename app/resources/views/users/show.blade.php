@@ -5,7 +5,7 @@
 
 	@can('chat')
 		<div class="list-group mb-3">
-			<a href="" class="list-group-item list-group-item-action disabled" aria-disabled="true">Chat (disabled)</a>
+			<a href="{{ route('chat.with.user', $user) }}" class="list-group-item list-group-item-action" aria-disabled="true">Chat with {{ $user->name }}</a>
 		</div>
 	@endcan
 
