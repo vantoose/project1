@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 
-	@can('chat')
+	@can('chatWith', $user)
 		<div class="list-group mb-3">
 			<a href="{{ route('chat.with.user', $user) }}" class="list-group-item list-group-item-action" aria-disabled="true">Chat with {{ $user->name }}</a>
 		</div>

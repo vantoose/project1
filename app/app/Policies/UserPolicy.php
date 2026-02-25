@@ -102,4 +102,16 @@ class UserPolicy
 	{
 		return $user->can('login as');
 	}
+
+    /**
+     * Determine whether the user can chat with the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\User  $model
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function chatWith(User $user, User $model)
+    {
+        return $user->can('chat') && $user->isNot($model);
+    }
 }
