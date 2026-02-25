@@ -19,7 +19,7 @@ return new class extends Migration
 
 			$table->softDeletes();
             
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->text('description')->nullable();
 
 			$table->json('options')->nullable();
