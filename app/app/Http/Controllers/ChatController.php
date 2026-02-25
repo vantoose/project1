@@ -39,7 +39,7 @@ class ChatController extends Controller
     public function show(Request $request, ChatRoom $chatRoom)
     {
         if ($request->wantsJson()) return response()->json([ 'chatRoom' => $chatRoom->load(['messages', 'users']) ]);
-        return view('chat.room.show')->withChatRoom($chatRoom->load(['messages', 'users']));
+        return view('chat.rooms.show')->withChatRoom($chatRoom->load(['messages', 'users']));
     }
 
     /**
@@ -99,6 +99,6 @@ class ChatController extends Controller
         $chatRoom->save();
         $chatRoom->users()->attach($userIds);
         
-        return view('chat.room.show')->withChatRoom($chatRoom->load(['messages', 'users']));
+        return view('chat.rooms.show')->withChatRoom($chatRoom->load(['messages', 'users']));
    }
 }
