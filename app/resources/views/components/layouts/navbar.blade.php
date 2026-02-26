@@ -10,20 +10,24 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('home') }}">{{ __('routes.web.home') }}</a>
-                </li>
+                @guest
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('home') }}">{{ __('routes.web.home') }}</a>
+                    </li>
+                @else
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('routes.web.home') }}</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('home') }}">{{ __('routes.web.home') }}</a>
+                            <a class="dropdown-item" href="{{ route('public.posts.index') }}">{{ __('routes.web.public.posts.index') }}</a>
+                        </div>
+                    </li>
+                @endguest
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('public.posts.index') }}">{{ __('routes.web.public.posts.index') }}</a>
                     </li>
                 @else
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ __('Public') }}</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('public.posts.index') }}">{{ __('routes.web.public.posts.index') }}</a>
-                        </div>
-                    </li>
                     @can('chat')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('chat.index') }}">{{ __('routes.web.chat.index') }}</a>
