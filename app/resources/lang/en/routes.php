@@ -45,6 +45,11 @@ return [
       'index' => 'Admin',
       'users' => [
         'index' => 'Users',
+        'create' => 'Create',
+        'store' => 'Store',
+        'edit' => 'Edit',
+        'update' => 'Update',
+        'destroy' => 'Delete',
       ],
     ],
     '5bukv' => '5 букв',

@@ -41,8 +41,11 @@
               @endforeach
             </td>
             <td>
+              @can('update', $user)
+                <a href="{{ route('admin.users.edit', $user) }}" class="d-block text-decoration-none">{{ __('routes.web.admin.users.edit') }}</a>
+              @endcan
               @can('login as')
-                <a href="{{ route('admin.users.login.as', $user) }}" class="text-decoration-none">{{ __('Login as') }}</a>
+                <a href="{{ route('admin.users.login.as', $user) }}" class="d-block text-decoration-none">{{ __('Login as') }}</a>
               @endcan
             </td>
           </tr>

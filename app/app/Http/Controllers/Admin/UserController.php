@@ -16,7 +16,7 @@ class UserController extends Controller
 	 */
 	public function __construct()
 	{
-		$this->authorizeResource(User::class, 'model');
+		$this->authorizeResource(User::class, 'user');
 	}
 
     /**
@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.users.edit')->withUser($user);
     }
 
     /**
@@ -82,7 +82,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        dd('Admin\UserController show', $request->input(), $user);
     }
 
     /**
@@ -93,7 +93,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        dd('Admin\UserController destroy', $user);
     }
 
 	/**

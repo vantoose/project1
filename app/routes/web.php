@@ -85,12 +85,12 @@ Route::middleware(['can:chat'])->group(function () {
  */
 
 Route::middleware(['role:admin'])->group(function () {
-
   Route::prefix('admin')->name('admin.')->group(function () {
+
     Route::prefix('users')->name('users.')->group(function () {
       Route::get('{user}/login_as', [App\Http\Controllers\Admin\UserController::class, 'loginAs'])->name('login.as');
     });
-    Route::resource('users', App\Http\Controllers\Admin\UserController::class)->only(['index']);
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+    
   });
-
 });
