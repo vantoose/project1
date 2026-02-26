@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -28,5 +29,13 @@ class UserSeeder extends Seeder
       'created_at' => now(),
       'updated_at' => now(),
     ]);
+
+		User::where('email', 'www@ishipilov.ru')->first()
+    ->syncRoles(['admin', 'user'])
+    ->syncPermissions(['posts', 'uploads']);
+
+    if (App::environment('local')) {
+      User::factory(9)->create();
+    }
   }
 }

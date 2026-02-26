@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\App;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -40,9 +38,7 @@ class RolesSeeder extends Seeder
 		if (! $permission_uploads) $permission_uploads = Permission::create(['name' => 'uploads']);
 
         $role_admin->syncPermissions([$permission_login_as]);
+		
         $role_user->syncPermissions([$permission_chat, $permission_memos]);
-
-		User::find(1)->syncRoles([$role_admin, $role_user])
-        ->syncPermissions([$permission_posts, $permission_uploads]);
     }
 }
