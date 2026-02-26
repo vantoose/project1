@@ -48,6 +48,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+	/**
+	 * Get total size of uploaded files in bytes.
+	 *
+	 * @return string
+	 */
+	public function getUploadsTotalSizeAttribute()
+	{
+        return $this->uploads->pluck('size')->sum();
+	}
+
     /**
      * Генерация нового API токена
      *

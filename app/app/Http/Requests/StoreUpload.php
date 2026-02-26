@@ -37,12 +37,16 @@ class StoreUpload extends FormRequest
 	 */
 	public function rules()
 	{
-		$maxSize = PhpConfigHelper::getUploadMaxFilesize();
+		$uploadMaxFilesize= PhpConfigHelper::getUploadMaxFilesize();
+		$maxSize = FileHelper::convertToBytes($uploadMaxFilesize);
+		$userUploadsTotalSize = $this->user()->uploadsTotalSize;
+		$userSize = FileHelper::convertToBytes($userUploadsTotalSize);
+		$availableSize = $maxSize - $userSize;
 		return [
 			'upload_file' => [
 				'required',
 				'file',
-				'max:' . FileHelper::convertToKilobytes($maxSize),
+				'max:' . FileHelper::convertToKilobytes($availableSize),
 			],
 		];
 	}

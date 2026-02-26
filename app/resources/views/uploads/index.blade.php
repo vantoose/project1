@@ -19,6 +19,11 @@
       <button type="submit" class="btn btn-primary">{{ __('Store') }}</button>
     </form>
 
+    <div class="alert alert-info" role="alert">
+      <span>Uploads total size:</span>
+      <span>{{ FileHelper::formatSizeUnits(Auth::user()->uploadsTotalSize) }}</span>
+    </div>
+
     <div class="overflow-auto">
       {{ $uploads->links() }}
     </div>
