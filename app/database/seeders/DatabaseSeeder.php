@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
     $this->call(UserSeeder::class);
 
     if (App::environment('local')) {
-      // Memo::factory(99)->create();
-      // Post::factory(99)->create();
-      // $this->call(ChatSeeder::class);
+      Memo::factory(99)->create();
+      Post::factory(99)->create();
+      $this->call(ChatSeeder::class);
     }
   }
 }

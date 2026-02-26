@@ -36,6 +36,16 @@ class UserSeeder extends Seeder
 
     if (App::environment('local')) {
       User::factory(9)->create();
+      
+      User::find(2)->syncRoles(['admin']);
+      
+      User::find(3)->syncRoles(['user']);
+      
+      User::find(4)->syncRoles(['user'])
+      ->syncPermissions(['login as']);
+      
+      User::find(5)->syncRoles(['user'])
+      ->syncPermissions(['posts', 'uploads']);
     }
   }
 }
