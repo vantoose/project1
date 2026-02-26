@@ -3,6 +3,11 @@
 @section('content')
   <div class="container">
 
+    <div class="alert alert-info" role="alert">
+      <span>Uploads total size:</span>
+      <span>{{ FileHelper::formatSizeUnits(Auth::user()->uploadsTotalSize) }}</span>
+    </div>
+
     <form method="POST" action="{{ route('uploads.store') }}" enctype="multipart/form-data" class="mb-3">
       @csrf
       <div class="form-group">
@@ -18,11 +23,6 @@
       </div>
       <button type="submit" class="btn btn-primary">{{ __('Store') }}</button>
     </form>
-
-    <div class="alert alert-info" role="alert">
-      <span>Uploads total size:</span>
-      <span>{{ FileHelper::formatSizeUnits(Auth::user()->uploadsTotalSize) }}</span>
-    </div>
 
     <div class="overflow-auto">
       {{ $uploads->links() }}
