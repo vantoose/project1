@@ -4,6 +4,8 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserPolicy
 {
@@ -101,6 +103,32 @@ class UserPolicy
 	public function loginAs(User $user, User $model)
 	{
 		return $user->can('login as');
+	}
+
+	/**
+	 * Determine whether the user can give permission to the model.
+	 *
+	 * @param  \App\Models\User  $user
+	 * @param  \App\Models\User  $model
+	 * @param  \Spatie\Permission\Models\Permission  $permission
+	 * @return \Illuminate\Auth\Access\Response|bool
+	 */
+	public function givePermissionTo(User $user, User $model, Permission $permission)
+	{
+        return $user->hasRole('admin');
+	}
+
+	/**
+	 * Determine whether the user can assign role to the model.
+	 *
+	 * @param  \App\Models\User  $user
+	 * @param  \App\Models\User  $model
+	 * @param  \Spatie\Permission\Models\Role  $role
+	 * @return \Illuminate\Auth\Access\Response|bool
+	 */
+	public function assignRole(User $user, User $model, Role $role)
+	{
+        return $user->hasRole('admin');
 	}
 
     /**

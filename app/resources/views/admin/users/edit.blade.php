@@ -40,5 +40,38 @@
       </div>
     </div>
     
+    <div class="card mb-3">
+      <div class="card-body">
+
+        <dl class="row mb-0">
+          <dt class="col-sm-3">{{ __('Roles with permissions') }}</dt>
+          <dd class="col-sm-9">
+            @foreach($user->roles as $role)
+              <dl class="row mb-0">
+                <dt class="col-sm-3">
+                  <span class="badge badge-primary">{{ $role->name }}</span>
+                </dt>
+                <dd class="col-sm-9">
+                  @foreach($role->getPermissionNames() as $permission_name)
+                    <span class="badge badge-secondary">{{ $permission_name }}</span>
+                  @endforeach
+                </dd>
+              </dl>
+            @endforeach
+          </dd>
+        </dl>
+
+        <dl class="row mb-0">
+          <dt class="col-sm-3">{{ __('Direct Permissions') }}</dt>
+          <dd class="col-sm-9">
+            @foreach($user->getDirectPermissions() as $permission)
+              <span class="badge badge-secondary">{{ $permission->name }}</span>
+            @endforeach
+          </dd>
+        </dl>
+
+      </div>
+    </div>
+    
   </div>
 @endsection

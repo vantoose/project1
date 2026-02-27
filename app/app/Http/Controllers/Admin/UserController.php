@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -107,5 +109,33 @@ class UserController extends Controller
 		$this->authorize('loginAs', $user);
 		Auth::loginUsingId($user->id);
 		return redirect()->route('home')->withStatus("Logged in as $user->name.");
+	}
+
+	/**
+	 * Assign permission to the user.
+	 *
+	 * @param  \App\Models\User  $user
+	 * @param  \Spatie\Permission\Models\Permission  $permission
+	 * @return \Illuminate\Http\Response
+	 */
+	public function givePermissionTo(User $user, Permission $permission)
+	{
+		$this->authorize('givePermissionTo', [$user, $permission]);
+		$user->givePermissionTo($permission);
+		return redirect()->route('admin.users.edit', $user)->withStatus("Success.");
+	}
+
+	/**
+	 * Assign role to the user.
+	 *
+	 * @param  \App\Models\User  $user
+	 * @param  \Spatie\Permission\Models\Role  $role
+	 * @return \Illuminate\Http\Response
+	 */
+	public function assignRole(User $user, Role $role)
+	{
+		$this->authorize('assignRole', [$user, $role]);
+		$user->assignRole($role);
+		return redirect()->route('admin.users.edit', $user)->withStatus("Success.");
 	}
 }

@@ -89,6 +89,8 @@ Route::middleware(['role:admin'])->group(function () {
 
     Route::prefix('users')->name('users.')->group(function () {
       Route::get('{user}/login_as', [App\Http\Controllers\Admin\UserController::class, 'loginAs'])->name('login.as');
+      Route::get('{user}/give_permission_to/{permission}', [App\Http\Controllers\Admin\UserController::class, 'givePermissionTo'])->name('give.permission.to');
+      Route::get('{user}/assign_role/{role}', [App\Http\Controllers\Admin\UserController::class, 'assignRole'])->name('assign.role');
     });
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
     
